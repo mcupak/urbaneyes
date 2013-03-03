@@ -1,4 +1,2 @@
-urbaneyes
+UrbanEyes
 =========
-
-Android app for urban planning.
