@@ -41,6 +41,11 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="" />
+
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.LicenseActivity"
+            android:label="@string/title_activity_license" >
+        </activity>
     </application>
 
 </manifest>

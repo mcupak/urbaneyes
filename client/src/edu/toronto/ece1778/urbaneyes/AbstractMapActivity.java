@@ -13,6 +13,7 @@ package edu.toronto.ece1778.urbaneyes;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.Toast;
@@ -35,11 +36,11 @@ public class AbstractMapActivity extends SherlockFragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// if (item.getItemId() == R.id.legal) {
-		// startActivity(new Intent(this, LegalNoticesActivity.class));
-		//
-		// return(true);
-		// }
+		if (item.getItemId() == R.id.legal) {
+			startActivity(new Intent(this, LicenseActivity.class));
+
+			return (true);
+		}
 
 		return super.onOptionsItemSelected(item);
 	}

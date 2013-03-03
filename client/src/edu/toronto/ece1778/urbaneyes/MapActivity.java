@@ -21,6 +21,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * Activity showing the map with the current position.
+ * 
+ * @author mcupak
+ *
+ */
 public class MapActivity extends AbstractMapActivity implements
 		OnNavigationListener, OnInfoWindowClickListener, LocationSource,
 		LocationListener {
