@@ -38,7 +38,6 @@ public class AbstractMapActivity extends SherlockFragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.legal) {
 			startActivity(new Intent(this, LicenseActivity.class));
-
 			return (true);
 		}
 

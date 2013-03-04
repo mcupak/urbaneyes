@@ -1,16 +1,21 @@
 package edu.toronto.ece1778.urbaneyes;
 
+import java.util.ArrayList;
+
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import java.util.ArrayList;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,11 +30,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Activity showing the map with the current position.
  * 
  * @author mcupak
- *
+ * 
  */
 public class MapActivity extends AbstractMapActivity implements
 		OnNavigationListener, OnInfoWindowClickListener, LocationSource,
 		LocationListener {
+
 	private static final String STATE_NAV = "nav";
 	private static final int[] MAP_TYPE_NAMES = { R.string.normal,
 			R.string.hybrid, R.string.satellite, R.string.terrain };
@@ -39,12 +45,16 @@ public class MapActivity extends AbstractMapActivity implements
 	private GoogleMap map = null;
 	private OnLocationChangedListener mapLocationListener = null;
 	private LocationManager locMgr = null;
+	private LatLng currentLocation = new LatLng(0, 0);
+	private String currentProject = "Project 1";
+
 	private Criteria crit = new Criteria();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// prepare maps
 		if (readyToGo()) {
 			setContentView(R.layout.activity_map);
 
@@ -63,16 +73,6 @@ public class MapActivity extends AbstractMapActivity implements
 				map.moveCamera(center);
 				map.animateCamera(zoom);
 			}
-
-			// addMarker(map, 40.748963847316034, -73.96807193756104,
-			// R.string.un, R.string.united_nations);
-			// addMarker(map, 40.76866299974387, -73.98268461227417,
-			// R.string.lincoln_center,
-			// R.string.lincoln_center_snippet);
-			// addMarker(map, 40.765136435316755, -73.97989511489868,
-			// R.string.carnegie_hall, R.string.practice_x3);
-			// addMarker(map, 40.70686417491799, -74.01572942733765,
-			// R.string.downtown_club, R.string.heisman_trophy);
 
 			map.setInfoWindowAdapter(new PopupAdapter(getLayoutInflater()));
 			map.setOnInfoWindowClickListener(this);
@@ -125,8 +125,21 @@ public class MapActivity extends AbstractMapActivity implements
 	}
 
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.addPoint:
+			// create a point
+			addPoint(map, currentLocation, currentProject,
+					currentLocation.toString());
+			return (true);
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
 	public void onInfoWindowClick(Marker marker) {
-		Toast.makeText(this, marker.getTitle(), Toast.LENGTH_LONG).show();
+		// TODO: add call to create survey
 	}
 
 	@Override
@@ -144,9 +157,9 @@ public class MapActivity extends AbstractMapActivity implements
 		if (mapLocationListener != null) {
 			mapLocationListener.onLocationChanged(location);
 
-			LatLng latlng = new LatLng(location.getLatitude(),
+			currentLocation = new LatLng(location.getLatitude(),
 					location.getLongitude());
-			CameraUpdate cu = CameraUpdateFactory.newLatLng(latlng);
+			CameraUpdate cu = CameraUpdateFactory.newLatLng(currentLocation);
 
 			map.animateCamera(cu);
 		}
@@ -189,9 +202,9 @@ public class MapActivity extends AbstractMapActivity implements
 		bar.setListNavigationCallbacks(nav, this);
 	}
 
-	private void addMarker(GoogleMap map, double lat, double lon, int title,
-			int snippet) {
-		map.addMarker(new MarkerOptions().position(new LatLng(lat, lon))
-				.title(getString(title)).snippet(getString(snippet)));
+	private void addPoint(GoogleMap map, LatLng latLng, String title,
+			String snippet) {
+		map.addMarker(new MarkerOptions().position(latLng).title(title)
+				.snippet(snippet));
 	}
 }

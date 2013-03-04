@@ -6,6 +6,12 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.model.Marker;
 
+/**
+ * Popup adapter to display tooltip on point on a map.
+ * 
+ * @author mcupak
+ *
+ */
 class PopupAdapter implements InfoWindowAdapter {
 	LayoutInflater inflater = null;
 

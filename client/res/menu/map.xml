@@ -1,9 +1,17 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<item
-		android:id="@+id/legal"
-		android:orderInCategory="100"
-		android:showAsAction="never"
-		android:title="@string/legal"/>
+    <item
+        android:id="@+id/addPoint"
+        android:showAsAction="always|withText"
+        android:title="@string/addPoint"/>
+    <item
+        android:id="@+id/addPath"
+        android:showAsAction="always|withText"
+        android:title="@string/startPath"/>
+    <item
+        android:id="@+id/legal"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/legal"/>
 
 </menu>
