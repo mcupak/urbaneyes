@@ -52,6 +52,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.FoodVendorSurveyActivity"
+            android:label="@string/title_activity_food_vendor_survey" >
+        </activity>
+
     </application>
 
 </manifest>
