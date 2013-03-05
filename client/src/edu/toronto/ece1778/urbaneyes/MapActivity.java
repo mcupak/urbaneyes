@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -31,8 +32,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * 
  */
 public class MapActivity extends AbstractMapActivity implements
-		OnNavigationListener, OnInfoWindowClickListener, LocationSource,
-		LocationListener {
+		OnNavigationListener, OnInfoWindowClickListener, OnMarkerDragListener,
+		LocationSource, LocationListener {
 
 	private static final String STATE_NAV = "nav";
 	private static final int[] MAP_TYPE_NAMES = { R.string.normal,
@@ -74,6 +75,7 @@ public class MapActivity extends AbstractMapActivity implements
 
 			map.setInfoWindowAdapter(new PopupAdapter(getLayoutInflater()));
 			map.setOnInfoWindowClickListener(this);
+			map.setOnMarkerDragListener(this);
 
 			locMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
 			crit.setAccuracy(Criteria.ACCURACY_FINE);
@@ -118,6 +120,22 @@ public class MapActivity extends AbstractMapActivity implements
 		map.setMapType(MAP_TYPES[itemPosition]);
 
 		return (true);
+	}
+
+	@Override
+	public void onMarkerDragStart(Marker marker) {
+		// empty
+	}
+
+	@Override
+	public void onMarkerDrag(Marker marker) {
+		// empty
+	}
+
+	@Override
+	public void onMarkerDragEnd(Marker marker) {
+		LatLng position = marker.getPosition();
+		marker.setSnippet(position.toString());
 	}
 
 	@Override
@@ -234,7 +252,7 @@ public class MapActivity extends AbstractMapActivity implements
 	private void addPoint(GoogleMap map, LatLng latLng, String title,
 			String snippet) {
 		map.addMarker(new MarkerOptions().position(latLng).title(title)
-				.snippet(snippet));
+				.snippet(snippet).draggable(true));
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
