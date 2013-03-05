@@ -25,5 +25,12 @@
     <string name="radio_veg_yes">Yes</string>
     <string name="radio_veg_no">No</string>
     <string name="veg_avail_label">Is vegetarian option available?</string>
+    <string name="title_activity_subway_entrance_survey">SubwayEntranceSurvey</string>
+    <string name="attendant_label">Does this entrance have an attendant on duty?</string>
+    <string name="turnstile">Does this entrance have a turnstile for people with disabilities?</string>
+    <string name="token_machine">Does this entrance have a token machine?</string>
+    <string name="elevator">Does this entrance have an elevator?</string>
+    <string name="radio_yes">Yes</string>
+    <string name="radio_no">No</string>
 
 </resources>
