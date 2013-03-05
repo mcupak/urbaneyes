@@ -1,21 +1,19 @@
 package edu.toronto.ece1778.urbaneyes;
 
-import com.actionbarsherlock.app.SherlockActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockActivity;
 
 public class FoodVendorSurveyActivity extends SherlockActivity {
 
-  TextView tvVendorType;
+	TextView tvVendorType;
 	RadioGroup rgVendor;
 	RadioButton rbVendor;
 	TextView tvVeg;
@@ -24,7 +22,7 @@ public class FoodVendorSurveyActivity extends SherlockActivity {
 	TextView tvMinVegOpt;
 	EditText etMinVegPrice;
 	Button buttonSubmit;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,23 +38,24 @@ public class FoodVendorSurveyActivity extends SherlockActivity {
 	}
 
 	/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.food_vendor_survey, menu);
-		return true;
-	}
-	*/
-	
+	 * @Override public boolean onCreateOptionsMenu(Menu menu) { // Inflate the
+	 * menu; this adds items to the action bar if it is present.
+	 * getMenuInflater().inflate(R.menu.food_vendor_survey, menu); return true;
+	 * }
+	 */
+
 	public void onClickSubmitButton(View arg1) {
-		
+
 		int rbVenId = rgVendor.getCheckedRadioButtonId();
 		rbVendor = (RadioButton) findViewById(rbVenId);
-		
+
 		int rbIdVegOpt = rgVegOpt.getCheckedRadioButtonId();
 		rbVegOpt = (RadioButton) findViewById(rbIdVegOpt);
-		
-		finish();     // TODO comment it out later
+
+		Intent returnIntent = new Intent();
+		// returnIntent.putExtra("result","");
+		setResult(RESULT_OK, returnIntent);
+		finish();
 	}
 
 }

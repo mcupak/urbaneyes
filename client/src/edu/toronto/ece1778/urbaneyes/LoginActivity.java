@@ -58,9 +58,10 @@ public class LoginActivity extends SherlockActivity {
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
+		mEmailView.setText("foo@example.com");
 
 		mPasswordView = (EditText) findViewById(R.id.password);
+		mPasswordView.setText("hello");
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
@@ -219,10 +220,11 @@ public class LoginActivity extends SherlockActivity {
 			showProgress(false);
 
 			if (success) {
-				Intent myIntent = new Intent(getBaseContext(), MapActivity.class);
+				Intent myIntent = new Intent(getBaseContext(), ProjectListActivity.class);
 		        myIntent.putExtra("userName", "user");
 		        myIntent.putExtra("password", "password");
 		        startActivity(myIntent);
+		        finish();
 			} else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));

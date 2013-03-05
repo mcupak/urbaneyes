@@ -9,9 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
@@ -82,6 +80,20 @@ public class MapActivity extends AbstractMapActivity implements
 
 			map.setMyLocationEnabled(true);
 			map.getUiSettings().setMyLocationButtonEnabled(false);
+
+			// load params
+			// TODO: rework with IDs
+			switch (getIntent().getIntExtra("selectedProject", 0)) {
+			case 0:
+				currentProject = "Food vendor";
+				break;
+			case 1:
+				currentProject = "Subway entrance";
+				break;
+			default:
+				currentProject = "Uncategorized";
+				break;
+			}
 		}
 	}
 
@@ -129,8 +141,7 @@ public class MapActivity extends AbstractMapActivity implements
 		switch (item.getItemId()) {
 		case R.id.addPoint:
 			// create a point
-			addPoint(map, currentLocation, currentProject,
-					currentLocation.toString());
+			openSurvey();
 			return (true);
 		default:
 			return super.onOptionsItemSelected(item);
@@ -139,7 +150,7 @@ public class MapActivity extends AbstractMapActivity implements
 
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		// TODO: add call to create survey
+		openSurvey();
 	}
 
 	@Override
@@ -202,9 +213,40 @@ public class MapActivity extends AbstractMapActivity implements
 		bar.setListNavigationCallbacks(nav, this);
 	}
 
+	private void openSurvey() {
+		Intent i;
+		switch (getIntent().getIntExtra("selectedProject", 0)) {
+		case 0:
+			i = new Intent(this, FoodVendorSurveyActivity.class);
+			startActivityForResult(i, 1);
+			break;
+		case 1:
+			i = new Intent(this, SubwayEntranceSurvey.class);
+			startActivityForResult(i, 1);
+			break;
+		default:
+			i = new Intent(this, FoodVendorSurveyActivity.class);
+			startActivityForResult(i, 1);
+			break;
+		}
+	}
+
 	private void addPoint(GoogleMap map, LatLng latLng, String title,
 			String snippet) {
 		map.addMarker(new MarkerOptions().position(latLng).title(title)
 				.snippet(snippet));
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				// String result=data.getStringExtra("result");
+				addPoint(map, currentLocation, currentProject,
+						currentLocation.toString());
+			}
+			if (resultCode == RESULT_CANCELED) {
+				// clean up
+			}
+		}
 	}
 }

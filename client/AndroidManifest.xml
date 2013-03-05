@@ -60,7 +60,10 @@
             android:name="edu.toronto.ece1778.urbaneyes.SubwayEntranceSurvey"
             android:label="@string/title_activity_subway_entrance_survey" >
         </activity>
-
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.ProjectListActivity"
+            android:label="@string/title_activity_project_list" >
+        </activity>
     </application>
 
 </manifest>

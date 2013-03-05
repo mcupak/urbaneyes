@@ -32,5 +32,6 @@
     <string name="elevator">Does this entrance have an elevator?</string>
     <string name="radio_yes">Yes</string>
     <string name="radio_no">No</string>
+    <string name="title_activity_project_list">Choose project...</string>
 
 </resources>

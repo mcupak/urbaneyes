@@ -2,23 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".SubwayEntranceSurvey"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".SubwayEntranceSurvey" >
 
     <TextView
         android:id="@+id/textViewAttendant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
         android:text="@string/attendant_label" />
 
     <RadioGroup
         android:id="@+id/radioAttendant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" >
 
         <RadioButton
             android:id="@+id/radioAttYes"
@@ -35,7 +35,6 @@
             android:layout_marginLeft="20dp"
             android:checked="false"
             android:text="@string/radio_no" />
-
     </RadioGroup>
 
     <TextView
@@ -50,8 +49,8 @@
         android:id="@+id/radioTurnstile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" >
 
         <RadioButton
             android:id="@+id/radioTurnYes"
@@ -68,7 +67,6 @@
             android:layout_marginLeft="20dp"
             android:checked="true"
             android:text="@string/radio_no" />
-
     </RadioGroup>
 
     <TextView
@@ -76,15 +74,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="@string/token_machine"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:text="@string/token_machine" />
 
     <RadioGroup
         android:id="@+id/radioTokMac"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" >
 
         <RadioButton
             android:id="@+id/radioTokYes"
@@ -101,48 +99,14 @@
             android:layout_marginLeft="20dp"
             android:checked="true"
             android:text="@string/radio_no" />
-
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/textViewElev"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="@string/elevator"
-        android:layout_marginTop="20dp" />
-
-    <RadioGroup
-        android:id="@+id/radioElevator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp">
-
-        <RadioButton
-            android:id="@+id/radioEleYes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:checked="false"
-            android:text="@string/radio_yes" />
-
-        <RadioButton
-            android:id="@+id/radioEleNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:checked="true"
-            android:text="@string/radio_no" />
-
     </RadioGroup>
 
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:onClick="onClickSubmitButton"
-        android:text="@string/submit"
-        android:layout_marginTop="25dp" />
+        android:text="@string/submit" />
 
 </LinearLayout>
