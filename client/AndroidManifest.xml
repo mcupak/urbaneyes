@@ -56,6 +56,10 @@
             android:name="edu.toronto.ece1778.urbaneyes.FoodVendorSurveyActivity"
             android:label="@string/title_activity_food_vendor_survey" >
         </activity>
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.SubwayEntranceSurvey"
+            android:label="@string/title_activity_subway_entrance_survey" >
+        </activity>
 
     </application>
 
