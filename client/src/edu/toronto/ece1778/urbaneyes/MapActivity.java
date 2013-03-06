@@ -2,7 +2,12 @@ package edu.toronto.ece1778.urbaneyes;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -47,14 +52,41 @@ public class MapActivity extends AbstractMapActivity implements
 	private OnLocationChangedListener mapLocationListener = null;
 	private LocationManager locMgr = null;
 	private LatLng currentLocation = DEFAULT_LOCATION;
+	private float currentAltitude = 0;
 	private String currentProject = "Project 1";
+	private SensorManager mSensorManager = null;
 
 	private Criteria crit = new Criteria();
+	private SensorEventListener mSensorListener = new SensorEventListener() {
+
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
+			// when accuracy changed, this method will be called.
+		}
+
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			// when pressure value is changed, this method will be called.
+			float pressure_value = 0.0f;
+			float height = 0.0f;
+
+			// if you use this listener as listener of only one sensor (ex,
+			// Pressure), then you don't need to check sensor type.
+			if (Sensor.TYPE_PRESSURE == event.sensor.getType()) {
+				pressure_value = event.values[0];
+				height = SensorManager.getAltitude(
+						SensorManager.PRESSURE_STANDARD_ATMOSPHERE,
+						pressure_value);
+			}
+			currentAltitude = height;
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		// prepare maps
 		if (readyToGo()) {
 			setContentView(R.layout.activity_map);
@@ -67,7 +99,8 @@ public class MapActivity extends AbstractMapActivity implements
 			map = mapFrag.getMap();
 
 			if (savedInstanceState == null) {
-				CameraUpdate center = CameraUpdateFactory.newLatLng(DEFAULT_LOCATION);
+				CameraUpdate center = CameraUpdateFactory
+						.newLatLng(DEFAULT_LOCATION);
 				CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
 
 				map.moveCamera(center);
@@ -104,6 +137,9 @@ public class MapActivity extends AbstractMapActivity implements
 	public void onResume() {
 		super.onResume();
 
+		mSensorManager.registerListener(mSensorListener,
+				mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE),
+				SensorManager.SENSOR_DELAY_NORMAL);
 		locMgr.requestLocationUpdates(0L, 0.0f, crit, this, null);
 		map.setLocationSource(this);
 	}
@@ -112,6 +148,7 @@ public class MapActivity extends AbstractMapActivity implements
 	public void onPause() {
 		map.setLocationSource(null);
 		locMgr.removeUpdates(this);
+		mSensorManager.unregisterListener(mSensorListener);
 
 		super.onPause();
 	}
@@ -136,7 +173,7 @@ public class MapActivity extends AbstractMapActivity implements
 	@Override
 	public void onMarkerDragEnd(Marker marker) {
 		LatLng position = marker.getPosition();
-		marker.setSnippet(position.toString());
+		marker.setSnippet(formatSnippet(currentLocation, currentAltitude));
 	}
 
 	@Override
@@ -261,11 +298,26 @@ public class MapActivity extends AbstractMapActivity implements
 			if (resultCode == RESULT_OK) {
 				// String result=data.getStringExtra("result");
 				addPoint(map, currentLocation, currentProject,
-						currentLocation.toString());
+						formatSnippet(currentLocation, currentAltitude));
 			}
 			if (resultCode == RESULT_CANCELED) {
 				// clean up
 			}
 		}
+	}
+
+	private String formatSnippet(LatLng position, float altitude) {
+		StringBuilder output = new StringBuilder();
+		output.append("Lat: ");
+		output.append(position.latitude);
+		output.append("\n");
+		output.append("Lon: ");
+		output.append(position.longitude);
+		output.append("\n");
+		output.append("Alt: ");
+		output.append(altitude);
+		output.append("\n");
+
+		return output.toString();
 	}
 }
