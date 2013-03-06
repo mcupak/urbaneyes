@@ -42,9 +42,11 @@ public class MapActivity extends AbstractMapActivity implements
 			GoogleMap.MAP_TYPE_HYBRID, GoogleMap.MAP_TYPE_SATELLITE,
 			GoogleMap.MAP_TYPE_TERRAIN };
 	private GoogleMap map = null;
+	private static final LatLng DEFAULT_LOCATION = new LatLng(
+			40.76793169992044, -73.98180484771729);
 	private OnLocationChangedListener mapLocationListener = null;
 	private LocationManager locMgr = null;
-	private LatLng currentLocation = new LatLng(0, 0);
+	private LatLng currentLocation = DEFAULT_LOCATION;
 	private String currentProject = "Project 1";
 
 	private Criteria crit = new Criteria();
@@ -65,8 +67,7 @@ public class MapActivity extends AbstractMapActivity implements
 			map = mapFrag.getMap();
 
 			if (savedInstanceState == null) {
-				CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(
-						40.76793169992044, -73.98180484771729));
+				CameraUpdate center = CameraUpdateFactory.newLatLng(DEFAULT_LOCATION);
 				CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
 
 				map.moveCamera(center);
