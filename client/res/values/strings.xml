@@ -33,5 +33,9 @@
     <string name="radio_yes">Yes</string>
     <string name="radio_no">No</string>
     <string name="title_activity_project_list">Choose project...</string>
+    <string name="title_activity_abandoned_houses_survey">AbandonedHousesSurvey</string>
+    <string name="AHSQ1">Is the building abandoned?</string>
+    <string name="AHSQ2">What indicates that it is abandoned?</string>
+    <string name="AHSQ3">How many floors does the building have?</string>
 
 </resources>
