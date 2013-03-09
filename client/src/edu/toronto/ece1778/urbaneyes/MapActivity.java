@@ -12,6 +12,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -40,6 +41,7 @@ public class MapActivity extends AbstractMapActivity implements
 		OnNavigationListener, OnInfoWindowClickListener, OnMarkerDragListener,
 		LocationSource, LocationListener {
 
+	public static final String TAG = "URBANEYES";
 	private static final String STATE_NAV = "nav";
 	private static final int[] MAP_TYPE_NAMES = { R.string.normal,
 			R.string.hybrid, R.string.satellite, R.string.terrain };
@@ -57,6 +59,7 @@ public class MapActivity extends AbstractMapActivity implements
 	private SensorManager mSensorManager = null;
 
 	private Criteria crit = new Criteria();
+	private AltitudeProcessor altitudeProcessor = new AltitudeProcessor();
 	private SensorEventListener mSensorListener = new SensorEventListener() {
 
 		@Override
@@ -66,21 +69,24 @@ public class MapActivity extends AbstractMapActivity implements
 
 		@Override
 		public void onSensorChanged(SensorEvent event) {
-			// when pressure value is changed, this method will be called.
-			float pressure_value = 0.0f;
-			float height = 0.0f;
-
-			// if you use this listener as listener of only one sensor (ex,
-			// Pressure), then you don't need to check sensor type.
 			if (Sensor.TYPE_PRESSURE == event.sensor.getType()) {
-				pressure_value = event.values[0];
-				height = SensorManager.getAltitude(
-						SensorManager.PRESSURE_STANDARD_ATMOSPHERE,
-						pressure_value);
+				currentAltitude = altitudeProcessor
+						.getAltitude(event.values[0]);
 			}
-			currentAltitude = height;
 		}
 	};
+
+	// task downloading the reference pressure value by location
+	class ComputePressureTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			altitudeProcessor.computeRefPressure(currentLocation.longitude,
+					currentLocation.latitude);
+			return null;
+		}
+
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -226,8 +232,15 @@ public class MapActivity extends AbstractMapActivity implements
 
 			currentLocation = new LatLng(location.getLatitude(),
 					location.getLongitude());
-			CameraUpdate cu = CameraUpdateFactory.newLatLng(currentLocation);
 
+			// compute reference altitude when location is registered for the
+			// first time
+			if (!altitudeProcessor.isComputed()) {
+				new ComputePressureTask().execute(null, null, null);
+			}
+
+			// center camera on location
+			CameraUpdate cu = CameraUpdateFactory.newLatLng(currentLocation);
 			map.animateCamera(cu);
 		}
 	}
