@@ -64,6 +64,11 @@
             android:name="edu.toronto.ece1778.urbaneyes.ProjectListActivity"
             android:label="@string/title_activity_project_list" >
         </activity>
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.AbandonedHousesSurvey"
+            android:label="@string/title_activity_abandoned_houses_survey" >
+        </activity>
+        
     </application>
 
 </manifest>
