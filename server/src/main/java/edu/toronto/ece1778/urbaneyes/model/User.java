@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class Member implements Serializable {
+public class User implements Serializable {
 	/** Default value included to remove warning. Remove or modify at will. **/
 	private static final long serialVersionUID = 1L;
 
@@ -37,6 +37,7 @@ public class Member implements Serializable {
 	private String email;
 	@NotNull
 	@NotEmpty
+	@Size(min = 4, max = 25)
 	private String password;
 
 	public Long getId() {

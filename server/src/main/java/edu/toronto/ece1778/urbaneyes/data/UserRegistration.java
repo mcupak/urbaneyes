@@ -1,4 +1,4 @@
-package edu.toronto.ece1778.urbaneyes.controller;
+package edu.toronto.ece1778.urbaneyes.data;
 
 import java.util.logging.Logger;
 
@@ -13,12 +13,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
-import edu.toronto.ece1778.urbaneyes.model.Member;
+import edu.toronto.ece1778.urbaneyes.model.User;
 
 // The @Stateful annotation eliminates the need for manual transaction demarcation
 @Stateful
 @Model
-public class MemberRegistration {
+public class UserRegistration {
 
 	@Inject
 	private Logger log;
@@ -30,13 +30,13 @@ public class MemberRegistration {
 	private EntityManager em;
 
 	@Inject
-	private Event<Member> memberEventSrc;
+	private Event<User> memberEventSrc;
 
-	private Member newMember;
+	private User newMember;
 
 	@Produces
 	@Named
-	public Member getNewMember() {
+	public User getNewMember() {
 		return newMember;
 	}
 
@@ -52,6 +52,6 @@ public class MemberRegistration {
 
 	@PostConstruct
 	public void initNewMember() {
-		newMember = new Member();
+		newMember = new User();
 	}
 }
