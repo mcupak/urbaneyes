@@ -50,7 +50,7 @@ public class MapActivity extends AbstractMapActivity implements
 			GoogleMap.MAP_TYPE_TERRAIN };
 	private GoogleMap map = null;
 	private static final LatLng DEFAULT_LOCATION = new LatLng(
-			40.76793169992044, -73.98180484771729);
+			43.660972, -79.398483);
 	private OnLocationChangedListener mapLocationListener = null;
 	private LocationManager locMgr = null;
 	private LatLng currentLocation = DEFAULT_LOCATION;
@@ -124,8 +124,11 @@ public class MapActivity extends AbstractMapActivity implements
 			map.getUiSettings().setMyLocationButtonEnabled(false);
 
 			// load params
-			// TODO: rework with IDs
-			switch (getIntent().getIntExtra("selectedProject", 0)) {
+			// TODO: check current survey type set
+			int i = getIntent().getIntExtra("selectedProject", 0);
+			currentProject = SurveyStateHolder.getSurveyNames().get(i);
+			SurveyStateHolder.setCurrentSurveyType(currentProject);
+			/*
 			case 0:
 				currentProject = "Food vendor";
 				break;
@@ -136,6 +139,7 @@ public class MapActivity extends AbstractMapActivity implements
 				currentProject = "Uncategorized";
 				break;
 			}
+			*/
 		}
 	}
 
@@ -283,7 +287,9 @@ public class MapActivity extends AbstractMapActivity implements
 	}
 
 	private void openSurvey() {
-		Intent i;
+		Intent i = new Intent(this, StartSurveyActivity.class);
+		startActivityForResult(i, 1);
+		/*
 		switch (getIntent().getIntExtra("selectedProject", 0)) {
 		case 0:
 			i = new Intent(this, FoodVendorSurveyActivity.class);
@@ -298,6 +304,7 @@ public class MapActivity extends AbstractMapActivity implements
 			startActivityForResult(i, 1);
 			break;
 		}
+		*/
 	}
 
 	private void addPoint(GoogleMap map, LatLng latLng, String title,

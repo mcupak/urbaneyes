@@ -37,5 +37,10 @@
     <string name="AHSQ1">Is the building abandoned?</string>
     <string name="AHSQ2">What indicates that it is abandoned?</string>
     <string name="AHSQ3">How many floors does the building have?</string>
+    <string name="title_activity_start_survey">StartSurveyActivity</string>
+    <string name="title_activity_number_question">NumberQuestionActivity</string>
+    <string name="question">question</string>
+    <string name="title_activity_text_question">TextQuestionActivity</string>
+    <string name="title_activity_radio_group_question">RadioGroupQuestionActivity</string>
 
 </resources>

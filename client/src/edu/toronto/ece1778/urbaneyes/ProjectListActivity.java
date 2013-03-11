@@ -11,6 +11,11 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 
+import edu.toronto.ece1778.urbaneyes.common.AnswerType;
+import edu.toronto.ece1778.urbaneyes.common.Question;
+import edu.toronto.ece1778.urbaneyes.common.RadioGroupQuestion;
+import edu.toronto.ece1778.urbaneyes.common.SurveyType;
+
 /**
  * Screen for the choice of projects.
  * 
@@ -31,9 +36,9 @@ public class ProjectListActivity extends SherlockListActivity {
 	}
 
 	private List<String> loadProjects() {
-		projects = new ArrayList<String>();
-		projects.add("Food vendor");
-		projects.add("Subway entrance");
+		// TODO add surveytypes received from server
+		addSurveyTypeObjects();
+		projects = SurveyStateHolder.getSurveyNames();
 		return projects;
 	}
 
@@ -44,4 +49,89 @@ public class ProjectListActivity extends SherlockListActivity {
 		myIntent.putExtra("selectedProject", selectedProject);
 		startActivity(myIntent);
 	}
+	
+	private void addSurveyTypeObjects() {
+		// TODO add surveytypes received from server
+		addSubwaySurveyTypeObject();
+		addFoodVendorSurveyTypeObject();
+	}
+	
+	private void addSubwaySurveyTypeObject() {
+
+		// TODO add surveytypes received from server
+		SurveyType st = new SurveyType();
+		st.setId(1);
+		st.setName("Subway Entrance Survey");
+
+		RadioGroupQuestion q = new RadioGroupQuestion();
+		q.setId(1);
+		q.setDesc("Does this entrance have an attendant on duty?");
+		q.setAnsType(AnswerType.RADIOGROUP);
+		RadioGroupQuestion.Option o = q.new Option();
+		o.setId(1);
+		o.setDesc("Yes");
+		q.addOption(o);
+		o = q.new Option();
+		o.setId(2);
+		o.setDesc("No");
+		q.addOption(o);
+		
+		st.addQuestion(q);
+
+		q = new RadioGroupQuestion();
+		q.setId(2);
+		q.setDesc("Does this entrance have a turnstile for people with disabilities?");
+		q.setAnsType(AnswerType.RADIOGROUP);
+		o = q.new Option();
+		o.setId(1);
+		o.setDesc("Yes");
+		q.addOption(o);
+		o = q.new Option();
+		o.setId(2);
+		o.setDesc("No");
+		q.addOption(o);
+
+		st.addQuestion(q);
+		
+		SurveyStateHolder.addSurveyType(st);
+
+	}
+
+	private void addFoodVendorSurveyTypeObject() {
+
+		// TODO add surveytypes received from server
+		SurveyType st = new SurveyType();
+		st.setId(1);
+		st.setName("Food Vendor Survey");
+
+		RadioGroupQuestion q = new RadioGroupQuestion();
+		q.setId(1);
+		q.setDesc("What kind of vendor is this?");
+		q.setAnsType(AnswerType.RADIOGROUP);
+		RadioGroupQuestion.Option o = q.new Option();
+		o.setId(1);
+		o.setDesc("Hot Dog");
+		q.addOption(o);
+		o = q.new Option();
+		o.setId(2);
+		o.setDesc("Toronto a la Carte");
+		q.addOption(o);
+		o = q.new Option();
+		o.setId(3);
+		o.setDesc("Food Truck");
+		q.addOption(o);
+		
+		st.addQuestion(q);
+
+		Question q2 = new Question();
+		q2.setId(2);
+		q2.setDesc("How much is the cheapest vegetarian option?");
+		q2.setAnsType(AnswerType.NUMBER);
+
+		st.addQuestion(q2);
+		
+		SurveyStateHolder.addSurveyType(st);
+
+	}
+	
 }
