@@ -5,10 +5,6 @@
         android:showAsAction="always|withText"
         android:title="@string/addPoint"/>
     <item
-        android:id="@+id/addPath"
-        android:showAsAction="always|withText"
-        android:title="@string/startPath"/>
-    <item
         android:id="@+id/legal"
         android:orderInCategory="100"
         android:showAsAction="never"
