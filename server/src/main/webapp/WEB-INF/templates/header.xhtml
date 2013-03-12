@@ -14,14 +14,14 @@
 			<!-- Guest Links -->
 			<div class="title">UrbanEyes</div>
 			<rich:toolbarGroup>
-				<h:link outcome="/index" value="Projects" />
+				<h:link outcome="/index" value="Submissions" />
 			</rich:toolbarGroup>
 
 			<rich:toolbarGroup location="right">
 				<h:form>
 					<c:choose>
 						<c:when test="#{identity.loggedIn}">
-							<h:outputText value="#{credentials.username}" />
+							<h:outputText value="#{credentials.username} " />
 							<h:commandButton action="#{identity.logout}" value="Log out" />
 						</c:when>
 						<c:otherwise>

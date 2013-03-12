@@ -19,7 +19,7 @@ import edu.toronto.ece1778.urbaneyes.model.User;
 
 @Stateless
 @Named
-public class UsersManager {
+public class UserManager {
 
 	@Inject
 	private EntityManager em;

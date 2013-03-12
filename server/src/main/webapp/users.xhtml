@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h2>Users</h2>
+		<h:panelGroup rendered="#{empty members}">
+			<em>No registered members.</em>
+		</h:panelGroup>
+		<h:dataTable var="_member" value="#{members}"
+			rendered="#{not empty members}">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+                #{_member.id}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+                #{_member.name}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+                #{_member.email}
+            </h:column>
+			<h:column>
+				<f:facet name="header">REST URL</f:facet>
+				<a href="#{request.contextPath}/rest/users/#{_member.id}">/rest/users/#{_member.id}</a>
+			</h:column>
+			<f:facet name="footer">
+            REST URL for all members: <a
+					href="#{request.contextPath}/rest/users">/rest/users</a>
+			</f:facet>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>

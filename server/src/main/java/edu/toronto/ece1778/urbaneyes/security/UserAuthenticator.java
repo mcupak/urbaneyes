@@ -6,7 +6,7 @@ import org.jboss.seam.security.BaseAuthenticator;
 import org.jboss.seam.security.Credentials;
 import org.picketlink.idm.impl.api.PasswordCredential;
 
-import edu.toronto.ece1778.urbaneyes.data.UsersManager;
+import edu.toronto.ece1778.urbaneyes.data.UserManager;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
 public class UserAuthenticator extends BaseAuthenticator {
@@ -15,7 +15,7 @@ public class UserAuthenticator extends BaseAuthenticator {
 	private Credentials credentials;
 
 	@Inject
-	private UsersManager usersManager;
+	private UserManager usersManager;
 
 	public void authenticate() {
 		System.out.println(credentials.getUsername());

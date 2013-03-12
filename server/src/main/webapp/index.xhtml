@@ -3,34 +3,24 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/WEB-INF/templates/default.xhtml">
+	template="/WEB-INF/templates/default.xhtml"
+	xmlns:rich="http://richfaces.org/rich">
 	<ui:define name="content">
-		<h2>Members</h2>
-		<h:panelGroup rendered="#{empty members}">
-			<em>No registered members.</em>
+		<h2>Submissions</h2>
+		<h:panelGroup rendered="#{empty surveys}">
+			<em>No surveys available.</em>
 		</h:panelGroup>
-		<h:dataTable var="_member" value="#{members}"
-			rendered="#{not empty members}">
-			<h:column>
-				<f:facet name="header">Id</f:facet>
-                #{_member.id}
-            </h:column>
-			<h:column>
-				<f:facet name="header">Name</f:facet>
-                #{_member.name}
-            </h:column>
-			<h:column>
-				<f:facet name="header">Email</f:facet>
-                #{_member.email}
-            </h:column>
-			<h:column>
-				<f:facet name="header">REST URL</f:facet>
-				<a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
-			</h:column>
-			<f:facet name="footer">
-            REST URL for all members: <a
-					href="#{request.contextPath}/rest/members">/rest/members</a>
-			</f:facet>
-		</h:dataTable>
+		<h:form>
+			<rich:panel style="width:220px;">
+				<f:facet name="header">
+					<h:outputText value="Select project..."></h:outputText>
+				</f:facet>
+				<rich:select enableManualInput="true"
+					defaultLabel="start typing to select">
+					<f:selectItems value="#{surveys}" var="n" itemLabel="#{n.name}"
+						itemValue="#{n.id}" />
+				</rich:select>
+			</rich:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>
