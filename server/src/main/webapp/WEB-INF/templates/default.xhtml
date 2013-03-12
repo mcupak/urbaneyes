@@ -10,13 +10,18 @@
 </h:head>
 <h:body>
 	<div id="container">
-		<div class="header">
-			<ui:decorate template="/WEB-INF/templates/header.xhtml" />
-		</div>
-		<div id="content">
-			<ui:insert name="content">
+		<div class="frame">
+			<div class="header">
+				<ui:decorate template="/WEB-INF/templates/header.xhtml" />
+			</div>
+			<div id="content">
+				<ui:insert name="content">
                     [Template content will be inserted here]
                 </ui:insert>
+			</div>
+		</div>
+		<div class="footer">
+			<ui:decorate template="/WEB-INF/templates/footer.xhtml" />
 		</div>
 	</div>
 </h:body>
