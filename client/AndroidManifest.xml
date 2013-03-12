@@ -36,7 +36,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="" />
+            android:value="AIzaSyCsa0SbSeNhIA5g6QiL5Cg2hFoYEcTMP9E" />
 
         <activity
             android:name="edu.toronto.ece1778.urbaneyes.LicenseActivity"
@@ -68,7 +68,22 @@
             android:name="edu.toronto.ece1778.urbaneyes.AbandonedHousesSurvey"
             android:label="@string/title_activity_abandoned_houses_survey" >
         </activity>
-        
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.StartSurveyActivity"
+            android:label="@string/title_activity_start_survey" >
+        </activity>
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.NumberQuestionActivity"
+            android:label="@string/title_activity_number_question" >
+        </activity>
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.TextQuestionActivity"
+            android:label="@string/title_activity_text_question" >
+        </activity>
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.RadioGroupQuestionActivity"
+            android:label="@string/title_activity_radio_group_question" >
+        </activity>
     </application>
 
 </manifest>
