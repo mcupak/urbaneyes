@@ -29,7 +29,7 @@ public class Submission implements Serializable {
 
 	@NotNull
 	@Column
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date date;
 
 	@OneToOne

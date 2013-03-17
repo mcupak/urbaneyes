@@ -40,7 +40,8 @@ public class SubmissionBean implements Serializable {
 	private String sortProperty;
 
 	public SubmissionBean() {
-		sortOrders.put("id", SortOrder.unsorted);
+		sortOrders.put("date", SortOrder.descending);
+		sortOrders.put("user", SortOrder.unsorted);
 	}
 
 	private EntityManager lookupEntityManager() {

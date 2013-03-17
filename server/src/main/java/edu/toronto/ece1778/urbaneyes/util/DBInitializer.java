@@ -32,8 +32,11 @@ public class DBInitializer {
 
 	@PostConstruct
 	public void initialize() {
-		User u = new User("John Smith", "foo@example.com", "hello", null, null);
+		User u = new User("Sean Smith", "foo@example.com", "hello", null, null);
 		manager.persist(u);
+		User u2 = new User("Miroslav Cupak", "mirocupak@gmail.com", "hello",
+				null, null);
+		manager.persist(u2);
 
 		Question q = new Question("What is this place?", AnswerType.TEXT,
 				new ArrayList<Option>(), null);
@@ -53,15 +56,22 @@ public class DBInitializer {
 		manager.merge(s);
 
 		Point p = new Point("Sample point", Double.valueOf(40.0),
-				Double.valueOf(38.0), Float.valueOf(0), "");
+				Double.valueOf(38.0), Float.valueOf(0),
+				"64 St George St, Toronto, ON, CA");
 		manager.persist(p);
 
 		Answer a = new Answer("I don't know.", q);
 		manager.persist(a);
+		Answer a2 = new Answer("U of T", q);
+		manager.persist(a2);
 
 		List<Answer> answers = new ArrayList<Answer>();
 		answers.add(a);
 		Submission su = new Submission(u, new Date(), p, answers, s);
 		manager.persist(su);
+		answers = new ArrayList<Answer>();
+		answers.add(a2);
+		Submission su2 = new Submission(u2, new Date(), p, answers, s);
+		manager.persist(su2);
 	}
 }
