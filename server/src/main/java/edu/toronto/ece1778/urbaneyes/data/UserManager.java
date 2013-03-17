@@ -33,14 +33,12 @@ public class UserManager {
 	@Produces
 	@Model
 	public List<User> getUsers() {
-		log.debug("Retrieving all users in the system");
 		CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
 		cq.select(cq.from(User.class));
 		return em.createQuery(cq).getResultList();
 	}
 
 	public User getUser(String email, String password) {
-		log.debug("Retrieving user based on username and password");
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery cq = cb.createQuery(User.class);
 		Root<User> userRoot = cq.from(User.class);
