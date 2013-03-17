@@ -18,7 +18,7 @@
 		<version.hibernate.validator>4.2.0.Final</version.hibernate.validator>
 		<version.javaee6.web.spec>2.0.0.Final</version.javaee6.web.spec>
 		<version.maven.war.plugin>2.2</version.maven.war.plugin>
-		<version.richfaces.bom>4.2.2.Final</version.richfaces.bom>
+		<version.richfaces.bom>4.3.1.Final</version.richfaces.bom>
 		<version.seam>3.1.0.Final</version.seam>
 		<version.testng>6.1.1</version.testng>
 	</properties>
@@ -55,7 +55,43 @@
 			<artifactId>cdi-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jboss.weld.servlet</groupId> -->
+<!-- 			<artifactId>weld-servlet</artifactId> -->
+<!-- 			<version>1.1.4.Final</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.jboss.weld</groupId> -->
+<!-- 					<artifactId>weld-build-config</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>jstl-api</artifactId>
+			<scope>${dependency.scope}</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>org.jboss.spec.javax.annotation</groupId>
 			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
@@ -81,21 +117,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>4.2.0.Final</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
 			<groupId>org.jboss.spec.javax.faces</groupId>
-			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
+			<artifactId>jboss-jsf-api_2.1_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
 

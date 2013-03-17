@@ -21,6 +21,22 @@
 						itemValue="#{n.id}" />
 				</rich:select>
 			</rich:panel>
+			<rich:panel style="margin-top: 15px;width: 100%;">
+				<f:facet name="header">
+					<h:outputText value="Submissions"></h:outputText>
+				</f:facet>
+				<rich:dataTable keepSaved="true" id="richTable" var="record"
+					value="#{submissionBean.dataModel}" rows="20" style="width:100%;">
+					<ui:include src="jpaColumn.xhtml">
+						<ui:param name="bean" value="#{submissionBean}" />
+						<ui:param name="property" value="id" />
+					</ui:include>
+
+					<f:facet name="footer">
+						<rich:dataScroller id="scroller" />
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>
