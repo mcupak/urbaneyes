@@ -1,10 +1,12 @@
 package edu.toronto.ece1778.urbaneyes.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -19,7 +21,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User implements Serializable {
-	/** Default value included to remove warning. Remove or modify at will. **/
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -39,6 +40,12 @@ public class User implements Serializable {
 	@NotEmpty
 	@Size(min = 4, max = 25)
 	private String password;
+
+	@OneToMany
+	private List<Survey> owned;
+
+	@OneToMany
+	private List<Survey> contributed;
 
 	public Long getId() {
 		return id;
@@ -71,4 +78,27 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Survey> getOwned() {
+		return owned;
+	}
+
+	public void setOwned(List<Survey> owned) {
+		this.owned = owned;
+	}
+
+	public List<Survey> getContributed() {
+		return contributed;
+	}
+
+	public void setContributed(List<Survey> contributed) {
+		this.contributed = contributed;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email
+				+ ", password=" + password + "]";
+	}
+
 }
