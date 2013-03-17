@@ -52,6 +52,7 @@ public class ProjectListActivity extends SherlockListActivity {
 	
 	private void addSurveyTypeObjects() {
 		// TODO add surveytypes received from server
+		SurveyStateHolder.clearSurveyTypes();
 		addSubwaySurveyTypeObject();
 		addFoodVendorSurveyTypeObject();
 	}
