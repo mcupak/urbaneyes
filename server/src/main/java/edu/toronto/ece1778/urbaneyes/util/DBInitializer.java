@@ -37,6 +37,8 @@ public class DBInitializer {
 		User u2 = new User("Miroslav Cupak", "mirocupak@gmail.com", "hello",
 				null, null);
 		manager.persist(u2);
+		User u3 = new User("Owen Wilson", "ow@gmail.com", "hello", null, null);
+		manager.persist(u3);
 
 		Question q = new Question("What is this place?", AnswerType.TEXT,
 				new ArrayList<Option>(), null);
@@ -64,6 +66,8 @@ public class DBInitializer {
 		manager.persist(a);
 		Answer a2 = new Answer("U of T", q);
 		manager.persist(a2);
+		Answer a3 = new Answer("Toronto", q);
+		manager.persist(a3);
 
 		List<Answer> answers = new ArrayList<Answer>();
 		answers.add(a);
@@ -73,5 +77,9 @@ public class DBInitializer {
 		answers.add(a2);
 		Submission su2 = new Submission(u2, new Date(), p, answers, s);
 		manager.persist(su2);
+		answers = new ArrayList<Answer>();
+		answers.add(a3);
+		Submission su3 = new Submission(u3, new Date(), p, answers, s);
+		manager.persist(su3);
 	}
 }
