@@ -1,5 +1,6 @@
 package edu.toronto.ece1778.urbaneyes.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -23,11 +24,15 @@ public class SurveyResourceRESTService {
 
 	@GET
 	@Produces("text/xml")
-	public List<Survey> listAllSurveys() {
+	public List<SurveyItem> listAllSurveys() {
 		@SuppressWarnings("unchecked")
 		final List<Survey> results = em.createQuery(
 				"select m from Survey m order by m.name").getResultList();
-		return results;
+		List<SurveyItem> items = new ArrayList<SurveyItem>();
+		for (Survey s : results) {
+			items.add(new SurveyItem(s));
+		}
+		return items;
 	}
 
 	@GET
