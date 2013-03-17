@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -48,11 +47,25 @@ public class Survey implements Serializable {
 
 	@NotNull
 	@NotEmpty
-	@Email
 	private String description;
 
 	@OneToMany
 	private List<Question> questions;
+
+	public Survey() {
+	}
+
+	public Survey(String name, Boolean priv, User owner,
+			List<User> contributors, String description,
+			List<Question> questions) {
+		super();
+		this.name = name;
+		this.priv = priv;
+		this.owner = owner;
+		this.contributors = contributors;
+		this.description = description;
+		this.questions = questions;
+	}
 
 	public Long getId() {
 		return id;

@@ -23,6 +23,14 @@ public class Option implements Serializable {
 	@NotEmpty
 	private String name;
 
+	public Option() {
+	}
+
+	public Option(String name) {
+		super();
+		this.name = name;
+	}
+
 	public Long getId() {
 		return id;
 	}

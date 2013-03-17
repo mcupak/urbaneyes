@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -41,11 +40,16 @@ public class User implements Serializable {
 	@Size(min = 4, max = 25)
 	private String password;
 
-	@OneToMany
-	private List<Survey> owned;
+	public User() {
+	}
 
-	@OneToMany
-	private List<Survey> contributed;
+	public User(String name, String email, String password, List<Survey> owned,
+			List<Survey> contributed) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
 
 	public Long getId() {
 		return id;
@@ -77,22 +81,6 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Survey> getOwned() {
-		return owned;
-	}
-
-	public void setOwned(List<Survey> owned) {
-		this.owned = owned;
-	}
-
-	public List<Survey> getContributed() {
-		return contributed;
-	}
-
-	public void setContributed(List<Survey> contributed) {
-		this.contributed = contributed;
 	}
 
 	@Override

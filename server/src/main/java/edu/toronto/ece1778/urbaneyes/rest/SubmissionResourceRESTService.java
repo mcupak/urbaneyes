@@ -26,7 +26,7 @@ public class SubmissionResourceRESTService {
 	public List<Submission> listAllSubmissions() {
 		@SuppressWarnings("unchecked")
 		final List<Submission> results = em.createQuery(
-				"select m from Submission m order by m.name").getResultList();
+				"select m from Submission m order by m.date DESC").getResultList();
 		return results;
 	}
 

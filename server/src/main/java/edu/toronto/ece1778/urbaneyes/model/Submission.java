@@ -28,8 +28,8 @@ public class Submission implements Serializable {
 	private User user;
 
 	@NotNull
-    @Column
-    @Temporal(javax.persistence.TemporalType.DATE)
+	@Column
+	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date date;
 
 	@OneToOne
@@ -40,6 +40,19 @@ public class Submission implements Serializable {
 
 	@ManyToOne
 	private Survey survey;
+
+	public Submission() {
+	}
+
+	public Submission(User user, Date date, Point point, List<Answer> answers,
+			Survey survey) {
+		super();
+		this.user = user;
+		this.date = date;
+		this.point = point;
+		this.answers = answers;
+		this.survey = survey;
+	}
 
 	public Long getId() {
 		return id;

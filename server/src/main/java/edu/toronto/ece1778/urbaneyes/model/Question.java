@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,8 +31,16 @@ public class Question implements Serializable {
 	@OneToMany
 	private List<Option> options;
 
-	@ManyToOne
-	private Survey survey;
+	public Question() {
+	}
+
+	public Question(String name, AnswerType answerType, List<Option> options,
+			Survey survey) {
+		super();
+		this.name = name;
+		this.answerType = answerType;
+		this.options = options;
+	}
 
 	public Long getId() {
 		return id;
@@ -67,18 +74,9 @@ public class Question implements Serializable {
 		this.options = options;
 	}
 
-	public Survey getSurvey() {
-		return survey;
-	}
-
-	public void setSurvey(Survey survey) {
-		this.survey = survey;
-	}
-
 	@Override
 	public String toString() {
 		return "Question [id=" + id + ", name=" + name + ", answerType="
-				+ answerType + ", options=" + options + ", survey=" + survey
-				+ "]";
+				+ answerType + ", options=" + options + "]";
 	}
 }

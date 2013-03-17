@@ -27,6 +27,15 @@ public class Answer implements Serializable {
 	@ManyToOne
 	private Question question;
 
+	public Answer() {
+	}
+
+	public Answer(String name, Question question) {
+		super();
+		this.name = name;
+		this.question = question;
+	}
+
 	public Long getId() {
 		return id;
 	}

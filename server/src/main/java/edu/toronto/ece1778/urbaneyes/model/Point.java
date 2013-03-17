@@ -32,6 +32,18 @@ public class Point implements Serializable {
 	@NotNull
 	private Float altitude;
 
+	public Point() {
+	}
+
+	public Point(String name, Double latitude, Double longitude,
+			Float altitude) {
+		super();
+		this.name = name;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.altitude = altitude;
+	}
+
 	public Double getLatitude() {
 		return latitude;
 	}
