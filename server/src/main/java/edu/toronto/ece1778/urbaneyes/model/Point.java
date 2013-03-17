@@ -32,16 +32,19 @@ public class Point implements Serializable {
 	@NotNull
 	private Float altitude;
 
+	private String address;
+
 	public Point() {
 	}
 
 	public Point(String name, Double latitude, Double longitude,
-			Float altitude) {
+			Float altitude, String address) {
 		super();
 		this.name = name;
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.altitude = altitude;
+		this.address = address;
 	}
 
 	public Double getLatitude() {
@@ -84,9 +87,19 @@ public class Point implements Serializable {
 		this.name = name;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
 		return "Point [id=" + id + ", name=" + name + ", latitude=" + latitude
-				+ ", longitude=" + longitude + ", altitude=" + altitude + "]";
+				+ ", longitude=" + longitude + ", altitude=" + altitude
+				+ ", address=" + address + "]";
 	}
+
 }

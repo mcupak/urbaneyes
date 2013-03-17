@@ -53,7 +53,7 @@ public class DBInitializer {
 		manager.merge(s);
 
 		Point p = new Point("Sample point", Double.valueOf(40.0),
-				Double.valueOf(38.0), Float.valueOf(0));
+				Double.valueOf(38.0), Float.valueOf(0), "");
 		manager.persist(p);
 
 		Answer a = new Answer("I don't know.", q);
