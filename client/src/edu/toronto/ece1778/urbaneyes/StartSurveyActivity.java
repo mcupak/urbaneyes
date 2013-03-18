@@ -48,6 +48,9 @@ public class StartSurveyActivity extends SherlockActivity {
 			}
 		} else {
 			SurveyStateHolder.reset();
+			Intent returnIntent = new Intent();
+			setResult(RESULT_OK, returnIntent);
+			SurveyStateHolder.reset();
 			finish();
 		}
 	}
