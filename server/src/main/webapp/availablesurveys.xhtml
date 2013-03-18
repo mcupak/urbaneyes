@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<ui:define name="content">
+		<h:form>
+			<rich:panel style="margin-top: 12px;width:280px;">
+				<f:facet name="header">
+					<h:outputText value="Select project..."></h:outputText>
+				</f:facet>
+				<table>
+					<tr>
+						<td><rich:select enableManualInput="true"
+								value="${stateBean.surveyForSubmissions}"
+								defaultLabel="start typing to select"
+								converter="surveyConverter">
+								<f:selectItems value="#{surveys}" var="n" itemLabel="#{n.name}" />
+							</rich:select></td>
+						<td><h:commandButton value="Load"
+								action="#{stateBean.loadSubmissions}" style="margin-top: 6px;" /></td>
+					</tr>
+				</table>
+			</rich:panel>
+			<rich:panel style="margin-top: 12px;width: 100%;">
+				<f:facet name="header">
+					<h:outputText value="Submissions"></h:outputText>
+				</f:facet>
+				<h:panelGroup rendered="#{empty stateBean.submissions}">
+					<em>No submissions available for this project.</em>
+				</h:panelGroup>
+				<rich:dataTable keepSaved="true" id="table" var="s"
+					rendered="#{not empty stateBean.submissions}"
+					value="#{stateBean.submissions}" rows="20" style="width:100%;">
+					<rich:column sortBy="#{s.date}" id="date"
+						sortOrder="#{submissionSortingBean.dateOrder}">
+						<f:facet name="header">
+							<a4j:commandLink value="Date" render="table"
+								action="#{submissionSortingBean.sortByDate}" />
+						</f:facet>
+						<h:outputText value="#{s.date}" />
+					</rich:column>
+					<rich:column sortBy="#{s.user.name}" id="state"
+						sortOrder="#{submissionSortingBean.userOrder}">
+						<f:facet name="header">
+							<a4j:commandLink value="Contributor" render="table"
+								action="#{submissionSortingBean.sortByUser}" />
+						</f:facet>
+						<h:outputText value="#{s.user.name}" />
+					</rich:column>
+					<rich:column id="actions">
+						<f:facet name="header">
+							<h:outputText value="Actions" />
+						</f:facet>
+						<a href="#{request.contextPath}/rest/submissions/#{s.id}/">XML</a>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller id="scroller" />
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

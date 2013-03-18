@@ -14,7 +14,12 @@
 			<!-- Guest Links -->
 			<div class="title">UrbanEyes</div>
 			<rich:toolbarGroup>
-				<h:link outcome="/index" value="Submissions" />
+				<h:link value="Submissions" outcome="/index" />
+				<c:if test="#{identity.loggedIn}">
+					<h:link value="My Submissions" outcome="/mysubmissions.xhtml" />
+					<h:link value="My Surveys" outcome="/mysurveys.xhtml" />
+					<h:link value="Open Surveys" outcome="/availablesurveys.xhtml" />
+				</c:if>
 			</rich:toolbarGroup>
 
 			<rich:toolbarGroup location="right">
