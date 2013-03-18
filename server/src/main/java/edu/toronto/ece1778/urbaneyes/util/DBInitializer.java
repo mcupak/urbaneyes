@@ -43,19 +43,32 @@ public class DBInitializer {
 		Question q = new Question("What is this place?", AnswerType.TEXT,
 				new ArrayList<Option>(), null);
 		manager.persist(q);
+		Question q2 = new Question("Yes?", AnswerType.TEXT,
+				new ArrayList<Option>(), null);
+		manager.persist(q2);
 
 		List<Question> questions = new ArrayList<Question>();
 		questions.add(q);
 		List<User> users = new ArrayList<User>();
 		users.add(u);
+		users.add(u2);
 		Survey s = new Survey("Test Survey", false, null, null,
 				"This is a sample survey.", null);
 		s.setOwner(u);
 		s.setContributors(users);
 		manager.persist(s);
+		Survey s2 = new Survey("Another Survey", false, null, null,
+				"This is another survey.", null);
+		s2.setOwner(u2);
+		s2.setContributors(users);
+		manager.persist(s2);
 
 		s.setQuestions(questions);
 		manager.merge(s);
+		questions = new ArrayList<Question>();
+		questions.add(q2);
+		s2.setQuestions(questions);
+		manager.merge(s2);
 
 		Point p = new Point("Sample point", Double.valueOf(40.0),
 				Double.valueOf(38.0), Float.valueOf(0),

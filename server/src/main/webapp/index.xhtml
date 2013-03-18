@@ -7,27 +7,34 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j">
 	<ui:define name="content">
-		<h:panelGroup rendered="#{empty surveys}">
-			<em>No surveys available.</em>
-		</h:panelGroup>
 		<h:form>
-			<rich:panel style="margin-top: 12px;width:220px;">
+			<rich:panel style="margin-top: 12px;width:280px;">
 				<f:facet name="header">
 					<h:outputText value="Select project..."></h:outputText>
 				</f:facet>
-				<rich:select enableManualInput="true"
-					defaultLabel="start typing to select">
-					<f:selectItems value="#{surveys}" var="n" itemLabel="#{n.name}"
-						itemValue="#{n.id}" />
-				</rich:select>
+				<table>
+					<tr>
+						<td><rich:select enableManualInput="true"
+								value="${stateBean.surveyForSubmissions}"
+								defaultLabel="start typing to select"
+								converter="surveyConverter">
+								<f:selectItems value="#{surveys}" var="n" itemLabel="#{n.name}" />
+							</rich:select></td>
+						<td><h:commandButton value="Load"
+								action="#{stateBean.loadSubmissions}" style="margin-top: 6px;" /></td>
+					</tr>
+				</table>
 			</rich:panel>
 			<rich:panel style="margin-top: 12px;width: 100%;">
 				<f:facet name="header">
 					<h:outputText value="Submissions"></h:outputText>
 				</f:facet>
+				<h:panelGroup rendered="#{empty stateBean.submissions}">
+					<em>No submissions available for this project.</em>
+				</h:panelGroup>
 				<rich:dataTable keepSaved="true" id="table" var="s"
-					value="#{submissionManager.submissions}" rows="20"
-					style="width:100%;">
+					rendered="#{not empty stateBean.submissions}"
+					value="#{stateBean.submissions}" rows="20" style="width:100%;">
 					<rich:column sortBy="#{s.date}" id="date"
 						sortOrder="#{submissionSortingBean.dateOrder}">
 						<f:facet name="header">
