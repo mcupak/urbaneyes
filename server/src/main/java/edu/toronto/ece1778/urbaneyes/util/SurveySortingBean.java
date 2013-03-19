@@ -11,7 +11,7 @@ import org.richfaces.component.SortOrder;
 @ViewScoped
 public class SurveySortingBean implements Serializable {
 	private static final long serialVersionUID = -5156711102367948040L;
-	private SortOrder nameOrder = SortOrder.descending;
+	private SortOrder nameOrder = SortOrder.ascending;
 	private SortOrder privOrder = SortOrder.unsorted;
 	private SortOrder descriptionOrder = SortOrder.unsorted;
 
