@@ -15,7 +15,7 @@
 				<table>
 					<tr>
 						<td><rich:select enableManualInput="true"
-								value="${stateBean.surveyForSubmissions}"
+								value="#{stateBean.surveyForSubmissions}"
 								defaultLabel="start typing to select"
 								converter="surveyConverter">
 								<f:selectItems value="#{surveys}" var="n" itemLabel="#{n.name}" />

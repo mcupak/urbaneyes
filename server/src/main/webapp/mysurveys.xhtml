@@ -15,7 +15,7 @@
 					<h:outputText value="Surveys I created..."></h:outputText>
 				</f:facet>
 				<h:panelGroup rendered="#{empty mysurveys}">
-					<em>No submissions available for this project.</em>
+					<em>No surveys available.</em>
 				</h:panelGroup>
 				<rich:dataTable keepSaved="true" id="table" var="s"
 					rendered="#{not empty mysurveys}" value="#{mysurveys}" rows="20"

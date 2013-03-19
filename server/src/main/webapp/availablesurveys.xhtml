@@ -12,10 +12,10 @@
 				<ui:param name="mysurveys"
 					value="#{stateBean.getAvailableSurveys(identity.user.id)}" />
 				<f:facet name="header">
-					<h:outputText value="Surveys I created..."></h:outputText>
+					<h:outputText value="Surveys I can contribute to..."></h:outputText>
 				</f:facet>
 				<h:panelGroup rendered="#{empty mysurveys}">
-					<em>No submissions available for this project.</em>
+					<em>No surveys available.</em>
 				</h:panelGroup>
 				<rich:dataTable keepSaved="true" id="table" var="s"
 					rendered="#{not empty mysurveys}" value="#{mysurveys}" rows="20"
