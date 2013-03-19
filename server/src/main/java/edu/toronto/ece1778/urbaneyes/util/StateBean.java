@@ -63,6 +63,13 @@ public class StateBean implements Serializable {
 		return sem.getAvailableSurveys(user);
 	}
 
+	public List<Survey> getSurveysByOwner(String userId) {
+		if (user == null) {
+			user = um.getUser(Long.valueOf(userId));
+		}
+		return sem.getSurveysByOwner(user);
+	}
+
 	public void loadUserSubmissions(String userId) {
 		if (userSurveyForSubmissions == null) {
 			userSubmissions = new ArrayList<Submission>();
