@@ -1,5 +1,6 @@
 package edu.toronto.ece1778.urbaneyes.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -15,6 +16,7 @@ import javax.persistence.criteria.Root;
 
 import org.jboss.solder.logging.Logger;
 
+import edu.toronto.ece1778.urbaneyes.model.Submission;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
@@ -37,6 +39,30 @@ public class SurveyManager {
 		CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
 		cq.select(cq.from(Survey.class));
 		return em.createQuery(cq).getResultList();
+	}
+
+	public List<Survey> getSurveysByOwner(User u) {
+		if (u == null) {
+			return new ArrayList<Survey>();
+		}
+		TypedQuery<Survey> query = em.createQuery(
+				"SELECT m FROM Survey m WHERE m.owner = :owner", Survey.class);
+		query.setParameter("owner", u);
+
+		return query.getResultList();
+	}
+
+	public List<Survey> getAvailableSurveys(User u) {
+		if (u == null) {
+			return new ArrayList<Survey>();
+		}
+		TypedQuery<Survey> query = em
+				.createQuery(
+						"SELECT m FROM Survey m WHERE m.priv = false OR :user MEMBER OF m.contributors",
+						Survey.class);
+		query.setParameter("user", u);
+
+		return query.getResultList();
 	}
 
 	public void addSurvey(Survey survey) {

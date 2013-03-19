@@ -33,7 +33,7 @@ public class UserAuthenticator extends BaseAuthenticator {
 			}
 
 			public String getKey() {
-				return "user";
+				return user.getEmail();
 			}
 		});
 		setStatus(AuthenticationStatus.SUCCESS);

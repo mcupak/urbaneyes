@@ -57,9 +57,11 @@ public class DBInitializer {
 		s.setOwner(u);
 		s.setContributors(users);
 		manager.persist(s);
-		Survey s2 = new Survey("Another Survey", false, null, null,
+		Survey s2 = new Survey("Another Survey", true, null, null,
 				"This is another survey.", null);
 		s2.setOwner(u2);
+		users = new ArrayList<User>();
+		users.add(u2);
 		s2.setContributors(users);
 		manager.persist(s2);
 
@@ -70,7 +72,7 @@ public class DBInitializer {
 		s2.setQuestions(questions);
 		manager.merge(s2);
 
-		Point p = new Point("Sample point", Double.valueOf(40.0),
+		Point p = new Point("Sample location", Double.valueOf(40.0),
 				Double.valueOf(38.0), Float.valueOf(0),
 				"64 St George St, Toronto, ON, CA");
 		manager.persist(p);

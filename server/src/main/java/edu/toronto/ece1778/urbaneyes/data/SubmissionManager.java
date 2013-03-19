@@ -16,6 +16,7 @@ import org.jboss.solder.logging.Logger;
 
 import edu.toronto.ece1778.urbaneyes.model.Submission;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
+import edu.toronto.ece1778.urbaneyes.model.User;
 
 @Stateless
 @Named
@@ -40,13 +41,28 @@ public class SubmissionManager {
 
 	public List<Submission> getSubmissionsBySurvey(Survey s) {
 		if (s == null) {
-            return new ArrayList<Submission>();
-        }
-        TypedQuery<Submission> query = em.createQuery(
-                "SELECT m FROM Submission m WHERE m.survey = ?", Submission.class);
-        query.setParameter(1, s);
+			return new ArrayList<Submission>();
+		}
+		TypedQuery<Submission> query = em.createQuery(
+				"SELECT m FROM Submission m WHERE m.survey = ?",
+				Submission.class);
+		query.setParameter(1, s);
 
-        return query.getResultList();
+		return query.getResultList();
+	}
+
+	public List<Submission> getSubmissionsBySurveyUser(Survey s, User u) {
+		if (s == null) {
+			return new ArrayList<Submission>();
+		}
+		TypedQuery<Submission> query = em
+				.createQuery(
+						"SELECT m FROM Submission m WHERE m.survey = :survey AND m.user = :user",
+						Submission.class);
+		query.setParameter("survey", s);
+		query.setParameter("user", u);
+
+		return query.getResultList();
 	}
 
 	public void addSubmission(Submission submission) {
