@@ -13,9 +13,11 @@ public class SubmissionSortingBean implements Serializable {
 	private static final long serialVersionUID = -5156711102367948040L;
 	private SortOrder dateOrder = SortOrder.descending;
 	private SortOrder userOrder = SortOrder.unsorted;
+	private SortOrder pointOrder = SortOrder.unsorted;
 
 	public void sortByDate() {
 		userOrder = SortOrder.unsorted;
+		pointOrder = SortOrder.unsorted;
 		if (dateOrder.equals(SortOrder.ascending)) {
 			setDateOrder(SortOrder.descending);
 		} else {
@@ -25,10 +27,21 @@ public class SubmissionSortingBean implements Serializable {
 
 	public void sortByUser() {
 		dateOrder = SortOrder.unsorted;
+		pointOrder = SortOrder.unsorted;
 		if (userOrder.equals(SortOrder.ascending)) {
 			setUserOrder(SortOrder.descending);
 		} else {
 			setUserOrder(SortOrder.ascending);
+		}
+	}
+
+	public void sortByPoint() {
+		dateOrder = SortOrder.unsorted;
+		userOrder = SortOrder.unsorted;
+		if (pointOrder.equals(SortOrder.ascending)) {
+			setPointOrder(SortOrder.descending);
+		} else {
+			setPointOrder(SortOrder.ascending);
 		}
 	}
 
@@ -46,6 +59,14 @@ public class SubmissionSortingBean implements Serializable {
 
 	public void setUserOrder(SortOrder userOrder) {
 		this.userOrder = userOrder;
+	}
+
+	public SortOrder getPointOrder() {
+		return pointOrder;
+	}
+
+	public void setPointOrder(SortOrder pointOrder) {
+		this.pointOrder = pointOrder;
 	}
 
 }

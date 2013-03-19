@@ -18,10 +18,13 @@
 								value="${stateBean.userSurveyForSubmissions}"
 								defaultLabel="start typing to select"
 								converter="surveyConverter">
-								<f:selectItems value="#{stateBean.getAvailableSurveys(identity.user.id)}" var="n" itemLabel="#{n.name}" />
+								<f:selectItems
+									value="#{stateBean.getAvailableSurveys(identity.user.id)}"
+									var="n" itemLabel="#{n.name}" />
 							</rich:select></td>
 						<td><h:commandButton value="Load"
-								action="#{stateBean.loadUserSubmissions(identity.user.id)}" style="margin-top: 6px;" /></td>
+								action="#{stateBean.loadUserSubmissions(identity.user.id)}"
+								style="margin-top: 6px;" /></td>
 					</tr>
 				</table>
 			</rich:panel>
@@ -43,11 +46,13 @@
 						</f:facet>
 						<h:outputText value="#{s.date}" />
 					</rich:column>
-					<rich:column id="point">
+					<rich:column id="point" sortBy="#{s.point.address}"
+						sortOrder="#{submissionSortingBean.pointOrder}">
 						<f:facet name="header">
-							<h:outputText value="Point" />
+							<a4j:commandLink value="Location" render="table"
+								action="#{submissionSortingBean.sortByPoint}" />
 						</f:facet>
-						<h:outputText value="#{s.point.name}" />
+						<h:outputText value="#{s.point.address}" />
 					</rich:column>
 					<rich:column id="actions">
 						<f:facet name="header">
