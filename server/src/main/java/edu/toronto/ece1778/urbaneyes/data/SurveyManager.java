@@ -46,8 +46,10 @@ public class SurveyManager {
 		if (u == null) {
 			return new ArrayList<Survey>();
 		}
-		TypedQuery<Survey> query = em.createQuery(
-				"SELECT m FROM Survey m WHERE m.owner = :owner", Survey.class);
+		TypedQuery<Survey> query = em
+				.createQuery(
+						"SELECT m FROM Survey m WHERE m.owner = :owner ORDER BY m.name",
+						Survey.class);
 		query.setParameter("owner", u);
 
 		return query.getResultList();
@@ -59,7 +61,7 @@ public class SurveyManager {
 		}
 		TypedQuery<Survey> query = em
 				.createQuery(
-						"SELECT m FROM Survey m WHERE m.priv = false OR :user MEMBER OF m.contributors",
+						"SELECT m FROM Survey m WHERE m.priv = false OR :user MEMBER OF m.contributors ORDER BY m.name",
 						Survey.class);
 		query.setParameter("user", u);
 

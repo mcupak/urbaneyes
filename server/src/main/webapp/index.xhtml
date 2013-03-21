@@ -36,18 +36,28 @@
 					rendered="#{not empty stateBean.submissions}"
 					value="#{stateBean.submissions}" rows="20" style="width:100%;">
 					<rich:column sortBy="#{s.date}" id="date"
-						sortOrder="#{submissionSortingBean.dateOrder}">
+						sortOrder="#{submissionSortingBean.dateOrder}"
+						filter="#{submissionFilteringBean.dateFilterImpl}">
 						<f:facet name="header">
 							<a4j:commandLink value="Date" render="table"
 								action="#{submissionSortingBean.sortByDate}" />
+							<h:outputText value=" " />
+							<h:inputText value="#{submissionFilteringBean.dateFilter}">
+								<a4j:ajax event="blur" render="table" execute="@this" />
+							</h:inputText>
 						</f:facet>
 						<h:outputText value="#{s.date}" />
 					</rich:column>
 					<rich:column sortBy="#{s.user.name}" id="state"
-						sortOrder="#{submissionSortingBean.userOrder}">
+						sortOrder="#{submissionSortingBean.userOrder}"
+						filter="#{submissionFilteringBean.userFilterImpl}">
 						<f:facet name="header">
-							<a4j:commandLink value="Contributor" render="table"
-								action="#{submissionSortingBean.sortByUser}" />
+						<a4j:commandLink value="Contributor" render="table"
+							action="#{submissionSortingBean.sortByUser}" />
+						<h:outputText value=" " />
+						<h:inputText value="#{submissionFilteringBean.userFilter}">
+							<a4j:ajax event="blur" render="table" execute="@this" />
+						</h:inputText>
 						</f:facet>
 						<h:outputText value="#{s.user.name}" />
 					</rich:column>

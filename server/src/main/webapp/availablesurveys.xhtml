@@ -21,26 +21,41 @@
 					rendered="#{not empty mysurveys}" value="#{mysurveys}" rows="20"
 					style="width:100%;">
 					<rich:column sortBy="#{s.name}" id="name"
-						sortOrder="#{surveySortingBean.nameOrder}">
+						sortOrder="#{surveySortingBean.nameOrder}"
+						filter="#{surveyFilteringBean.nameFilterImpl}">
 						<f:facet name="header">
 							<a4j:commandLink value="Name" render="table"
 								action="#{surveySortingBean.sortByName}" />
+							<h:outputText value=" " />
+							<h:inputText value="#{surveyFilteringBean.nameFilter}">
+								<a4j:ajax event="blur" render="table" execute="@this" />
+							</h:inputText>
 						</f:facet>
 						<h:outputText value="#{s.name}" />
 					</rich:column>
 					<rich:column sortBy="#{s.description}" id="description"
-						sortOrder="#{surveySortingBean.descriptionOrder}">
+						sortOrder="#{surveySortingBean.descriptionOrder}"
+						filter="#{surveyFilteringBean.descriptionFilterImpl}">
 						<f:facet name="header">
 							<a4j:commandLink value="Description" render="table"
 								action="#{surveySortingBean.sortByDescription}" />
+							<h:outputText value=" " />
+							<h:inputText value="#{surveyFilteringBean.descriptionFilter}">
+								<a4j:ajax event="blur" render="table" execute="@this" />
+							</h:inputText>
 						</f:facet>
 						<h:outputText value="#{s.description}" />
 					</rich:column>
 					<rich:column sortBy="#{s.priv}" id="priv"
-						sortOrder="#{surveySortingBean.privOrder}">
+						sortOrder="#{surveySortingBean.privOrder}"
+						filter="#{surveyFilteringBean.privateFilterImpl}">
 						<f:facet name="header">
 							<a4j:commandLink value="Private" render="table"
 								action="#{surveySortingBean.sortByPrivate}" />
+							<h:outputText value=" " />
+							<h:inputText value="#{surveyFilteringBean.privateFilter}">
+								<a4j:ajax event="blur" render="table" execute="@this" />
+							</h:inputText>
 						</f:facet>
 						<h:outputText value="#{s.priv}" />
 					</rich:column>

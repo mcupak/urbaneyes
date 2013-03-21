@@ -39,18 +39,28 @@
 					rendered="#{not empty stateBean.userSubmissions}"
 					value="#{stateBean.userSubmissions}" rows="20" style="width:100%;">
 					<rich:column sortBy="#{s.date}" id="date"
-						sortOrder="#{submissionSortingBean.dateOrder}">
+						sortOrder="#{submissionSortingBean.dateOrder}"
+						filter="#{submissionFilteringBean.dateFilterImpl}">
 						<f:facet name="header">
 							<a4j:commandLink value="Date" render="table"
 								action="#{submissionSortingBean.sortByDate}" />
+							<h:outputText value=" " />
+							<h:inputText value="#{submissionFilteringBean.dateFilter}">
+								<a4j:ajax event="blur" render="table" execute="@this" />
+							</h:inputText>
 						</f:facet>
 						<h:outputText value="#{s.date}" />
 					</rich:column>
 					<rich:column id="point" sortBy="#{s.point.address}"
-						sortOrder="#{submissionSortingBean.pointOrder}">
+						sortOrder="#{submissionSortingBean.pointOrder}"
+						filter="#{submissionFilteringBean.addressFilterImpl}">
 						<f:facet name="header">
 							<a4j:commandLink value="Location" render="table"
 								action="#{submissionSortingBean.sortByPoint}" />
+							<h:outputText value=" " />
+							<h:inputText value="#{submissionFilteringBean.addressFilter}">
+								<a4j:ajax event="blur" render="table" execute="@this" />
+							</h:inputText>
 						</f:facet>
 						<h:outputText value="#{s.point.address}" />
 					</rich:column>
