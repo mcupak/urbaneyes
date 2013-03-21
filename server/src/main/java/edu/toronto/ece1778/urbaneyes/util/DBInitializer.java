@@ -43,7 +43,7 @@ public class DBInitializer {
 		Question q = new Question("What is this place?", AnswerType.TEXT,
 				new ArrayList<Option>(), null);
 		manager.persist(q);
-		Question q2 = new Question("Yes?", AnswerType.TEXT,
+		Question q2 = new Question("Is this place noisy?", AnswerType.TEXT,
 				new ArrayList<Option>(), null);
 		manager.persist(q2);
 
@@ -57,13 +57,18 @@ public class DBInitializer {
 		s.setOwner(u);
 		s.setContributors(users);
 		manager.persist(s);
-		Survey s2 = new Survey("Another Survey", true, null, null,
-				"This is another survey.", null);
+		Survey s2 = new Survey("Recycling survey", true, null, null,
+				"Survey about recycling possibilities.", null);
 		s2.setOwner(u2);
+		Survey s3 = new Survey("Noise survey", false, null, null,
+				"Measurement of street noise.", null);
+		s3.setOwner(u2);
 		users = new ArrayList<User>();
 		users.add(u2);
 		s2.setContributors(users);
+		s3.setContributors(users);
 		manager.persist(s2);
+		manager.persist(s3);
 
 		s.setQuestions(questions);
 		manager.merge(s);
@@ -72,7 +77,7 @@ public class DBInitializer {
 		s2.setQuestions(questions);
 		manager.merge(s2);
 
-		Point p = new Point("Sample location", Double.valueOf(40.0),
+		Point p = new Point("U of T campus", Double.valueOf(40.0),
 				Double.valueOf(38.0), Float.valueOf(0),
 				"64 St George St, Toronto, ON, CA");
 		manager.persist(p);

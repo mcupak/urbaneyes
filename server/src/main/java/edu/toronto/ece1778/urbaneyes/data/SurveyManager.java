@@ -36,9 +36,10 @@ public class SurveyManager {
 	@Produces
 	@Model
 	public List<Survey> getSurveys() {
-		CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(Survey.class));
-		return em.createQuery(cq).getResultList();
+		TypedQuery<Survey> query = em.createQuery(
+				"SELECT m FROM Survey m ORDER BY m.name", Survey.class);
+
+		return query.getResultList();
 	}
 
 	public List<Survey> getSurveysByOwner(User u) {
