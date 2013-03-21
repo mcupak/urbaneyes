@@ -44,7 +44,7 @@
 						<f:facet name="header">
 							<a4j:commandLink value="Date" render="table"
 								action="#{submissionSortingBean.sortByDate}" />
-							<h:outputText value=" " />
+							<h:outputText value=": " />
 							<h:inputText value="#{submissionFilteringBean.dateFilter}">
 								<a4j:ajax event="blur" render="table" execute="@this" />
 							</h:inputText>
@@ -57,7 +57,7 @@
 						<f:facet name="header">
 							<a4j:commandLink value="Location" render="table"
 								action="#{submissionSortingBean.sortByPoint}" />
-							<h:outputText value=" " />
+							<h:outputText value=": " />
 							<h:inputText value="#{submissionFilteringBean.addressFilter}">
 								<a4j:ajax event="blur" render="table" execute="@this" />
 							</h:inputText>

@@ -26,7 +26,7 @@
 						<f:facet name="header">
 							<a4j:commandLink value="Name" render="table"
 								action="#{surveySortingBean.sortByName}" />
-							<h:outputText value=" " />
+							<h:outputText value=": " />
 							<h:inputText value="#{surveyFilteringBean.nameFilter}">
 								<a4j:ajax event="blur" render="table" execute="@this" />
 							</h:inputText>
@@ -39,7 +39,7 @@
 						<f:facet name="header">
 							<a4j:commandLink value="Description" render="table"
 								action="#{surveySortingBean.sortByDescription}" />
-							<h:outputText value=" " />
+							<h:outputText value=": " />
 							<h:inputText value="#{surveyFilteringBean.descriptionFilter}">
 								<a4j:ajax event="blur" render="table" execute="@this" />
 							</h:inputText>
@@ -52,7 +52,7 @@
 						<f:facet name="header">
 							<a4j:commandLink value="Private" render="table"
 								action="#{surveySortingBean.sortByPrivate}" />
-							<h:outputText value=" " />
+							<h:outputText value=": " />
 							<h:inputText value="#{surveyFilteringBean.privateFilter}">
 								<a4j:ajax event="blur" render="table" execute="@this" />
 							</h:inputText>
