@@ -6,7 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,6 +35,8 @@ public class ViewBean implements Serializable {
 	private QuestionManager qm;
 	@Inject
 	private SubmissionManager sm;
+	@Inject
+	private StateBean state;
 	private List<AnswerType> answerTypes;
 
 	private SurveyProxy survey = null;
@@ -120,18 +124,18 @@ public class ViewBean implements Serializable {
 	public String removeSurvey(Long id) {
 		Survey s = null;
 		if (id != null) {
-			s = sem.getSurvey(survey.getId());
+			s = sem.getSurvey(id);
 		}
-		if (s != null && sm.getSubmissionsBySurvey(s).isEmpty()) {
-			for (Question q : s.getQuestions()) {
-				qm.deleteQuestion(q.getId());
+		if (s != null) {
+			if (sm.getSubmissionsBySurvey(s).isEmpty()) {
+				for (Question q : s.getQuestions()) {
+					qm.deleteQuestion(q.getId());
+				}
+				sem.deleteSurvey(id);
+			} else {
+				state.setProblem("Cannot delete a survey with submissions!");
 			}
-			sem.deleteSurvey(id);
 		}
-		return "/mysurveys.xhtml?faces-redirect=true";
-	}
-
-	public String cancel() {
 		return "/mysurveys.xhtml?faces-redirect=true";
 	}
 

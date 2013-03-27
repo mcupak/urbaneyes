@@ -10,8 +10,7 @@
 	xmlns:s="http://jboss.org/seam/faces">
 	<ui:define name="head">
 		<f:metadata>
-			<s:viewAction
-				action="#{stateBean.setMySurveysView(true)}" />
+			<s:viewAction action="#{stateBean.setMySurveysView(true)}" />
 		</f:metadata>
 	</ui:define>
 	<ui:define name="content">
@@ -87,9 +86,10 @@
 					</f:facet>
 				</rich:dataTable>
 				<p>
-					<h:commandButton value="Create a new survey"
-						action="#{stateBean.selectSurvey(-1, true, true)}" />
+					<h:outputText value="#{stateBean.showProblem}" />
 				</p>
+				<h:button value="Create a new survey"
+					outcome="#{stateBean.selectSurvey(-1, true, true)}" />
 			</rich:panel>
 		</h:form>
 	</ui:define>

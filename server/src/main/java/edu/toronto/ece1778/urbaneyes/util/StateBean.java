@@ -35,6 +35,7 @@ public class StateBean implements Serializable {
 	private boolean edit = false;
 	private boolean editQuestions = false;
 	private boolean mySurveysView = true;
+	private String problem = "";
 
 	public Survey getSurveyForSubmissions() {
 		return surveyForSubmissions;
@@ -132,6 +133,20 @@ public class StateBean implements Serializable {
 
 	public void setMySurveysView(boolean mySurveysView) {
 		this.mySurveysView = mySurveysView;
+	}
+
+	public String getProblem() {
+		return problem;
+	}
+
+	public String showProblem() {
+		String p = problem;
+		problem = "";
+		return p;
+	}
+
+	public void setProblem(String problem) {
+		this.problem = problem;
 	}
 
 	public String selectSurvey(Long surveyForEditId, boolean edit,
