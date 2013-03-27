@@ -93,7 +93,7 @@
 											rendered="#{stateBean.editQuestions}" /></td>
 								</tr>
 							</table>
-					</td>
+						</td>
 					</tr>
 					<tr>
 						<td>Contributors:</td>
@@ -139,7 +139,12 @@
 
 				<h:commandButton value="Save" action="#{viewBean.saveSurvey}"
 					rendered="#{stateBean.edit}" />
-				<h:button value="Cancel" outcome="/mysurveys.xhtml?faces-redirect=true" />
+				<h:button value="Cancel"
+					outcome="/mysurveys.xhtml?faces-redirect=true"
+					rendered="#{stateBean.mySurveysView}" />
+				<h:button value="Cancel"
+					outcome="/availablesurveys.xhtml?faces-redirect=true"
+					rendered="#{not stateBean.mySurveysView}" />
 			</rich:panel>
 		</h:form>
 	</ui:define>

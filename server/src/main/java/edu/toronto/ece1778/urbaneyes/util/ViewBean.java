@@ -125,8 +125,8 @@ public class ViewBean implements Serializable {
 		if (s != null && sm.getSubmissionsBySurvey(s).isEmpty()) {
 			for (Question q : s.getQuestions()) {
 				qm.deleteQuestion(q.getId());
-				sem.deleteSurvey(id);
 			}
+			sem.deleteSurvey(id);
 		}
 		return "/mysurveys.xhtml?faces-redirect=true";
 	}

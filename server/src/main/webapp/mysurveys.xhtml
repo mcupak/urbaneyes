@@ -5,7 +5,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:s="http://jboss.org/seam/faces">
+	<ui:define name="head">
+		<f:metadata>
+			<s:viewAction
+				action="#{stateBean.setMySurveysView(true)}" />
+		</f:metadata>
+	</ui:define>
 	<ui:define name="content">
 		<h:form>
 			<rich:panel style="margin-top: 12px;width: 100%;">
@@ -69,6 +77,9 @@
 						<h:commandLink value="EDIT"
 							action="#{stateBean.selectSurvey(s.id, true, false)}" />
 						<h:outputText value=" " />
+						<h:commandLink value="DELETE"
+							action="#{viewBean.removeSurvey(s.id)}" />
+						<h:outputText value=" " />
 						<a href="#{request.contextPath}/rest/surveys/#{s.id}/">XML</a>
 					</rich:column>
 					<f:facet name="footer">
@@ -76,7 +87,8 @@
 					</f:facet>
 				</rich:dataTable>
 				<p>
-					<h:commandButton value="Create a new survey" action="#{stateBean.selectSurvey(-1, true, true)}" />
+					<h:commandButton value="Create a new survey"
+						action="#{stateBean.selectSurvey(-1, true, true)}" />
 				</p>
 			</rich:panel>
 		</h:form>
