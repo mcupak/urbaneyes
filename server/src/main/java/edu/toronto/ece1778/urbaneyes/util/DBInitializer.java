@@ -1,8 +1,8 @@
 package edu.toronto.ece1778.urbaneyes.util;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -41,15 +41,15 @@ public class DBInitializer {
 		manager.persist(u3);
 
 		Question q = new Question("What is this place?", AnswerType.TEXT,
-				new ArrayList<Option>(), null);
+				new HashSet<Option>());
 		manager.persist(q);
 		Question q2 = new Question("Is this place noisy?", AnswerType.TEXT,
-				new ArrayList<Option>(), null);
+				new HashSet<Option>());
 		manager.persist(q2);
 
-		List<Question> questions = new ArrayList<Question>();
+		Set<Question> questions = new HashSet<Question>();
 		questions.add(q);
-		List<User> users = new ArrayList<User>();
+		Set<User> users = new HashSet<User>();
 		users.add(u);
 		users.add(u2);
 		Survey s = new Survey("Test Survey", false, null, null,
@@ -63,7 +63,7 @@ public class DBInitializer {
 		Survey s3 = new Survey("Noise survey", false, null, null,
 				"Measurement of street noise.", null);
 		s3.setOwner(u2);
-		users = new ArrayList<User>();
+		users = new HashSet<User>();
 		users.add(u2);
 		s2.setContributors(users);
 		s3.setContributors(users);
@@ -72,7 +72,7 @@ public class DBInitializer {
 
 		s.setQuestions(questions);
 		manager.merge(s);
-		questions = new ArrayList<Question>();
+		questions = new HashSet<Question>();
 		questions.add(q2);
 		s2.setQuestions(questions);
 		manager.merge(s2);
@@ -89,15 +89,15 @@ public class DBInitializer {
 		Answer a3 = new Answer("Toronto", q);
 		manager.persist(a3);
 
-		List<Answer> answers = new ArrayList<Answer>();
+		Set<Answer> answers = new HashSet<Answer>();
 		answers.add(a);
 		Submission su = new Submission(u, new Date(), p, answers, s);
 		manager.persist(su);
-		answers = new ArrayList<Answer>();
+		answers = new HashSet<Answer>();
 		answers.add(a2);
 		Submission su2 = new Submission(u2, new Date(), p, answers, s);
 		manager.persist(su2);
-		answers = new ArrayList<Answer>();
+		answers = new HashSet<Answer>();
 		answers.add(a3);
 		Submission su3 = new Submission(u3, new Date(), p, answers, s);
 		manager.persist(su3);

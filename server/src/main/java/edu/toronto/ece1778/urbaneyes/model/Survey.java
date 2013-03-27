@@ -1,9 +1,12 @@
 package edu.toronto.ece1778.urbaneyes.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -18,8 +21,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -32,8 +33,8 @@ public class Survey implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Size(min = 1, max = 30)
-	@Pattern(regexp = "[A-Za-z ]*", message = "must contain only letters and spaces")
+	@Size(min = 1, max = 30, message = "name must be 1-30 characters long")
+	@Pattern(regexp = "[A-Za-z ]*", message = "name must contain only letters and spaces")
 	private String name;
 
 	@NotNull
@@ -42,22 +43,20 @@ public class Survey implements Serializable {
 	@ManyToOne
 	private User owner;
 
-	@ManyToMany
-	private List<User> contributors;
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<User> contributors;
 
-	@NotNull
-	@NotEmpty
+	@NotNull(message = "description cannot be empty")
 	private String description;
 
-	@OneToMany
-	private List<Question> questions;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Question> questions;
 
 	public Survey() {
 	}
 
 	public Survey(String name, Boolean priv, User owner,
-			List<User> contributors, String description,
-			List<Question> questions) {
+			Set<User> contributors, String description, Set<Question> questions) {
 		super();
 		this.name = name;
 		this.priv = priv;
@@ -91,11 +90,11 @@ public class Survey implements Serializable {
 		this.description = description;
 	}
 
-	public List<Question> getQuestions() {
+	public Set<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
 
@@ -115,12 +114,67 @@ public class Survey implements Serializable {
 		this.owner = owner;
 	}
 
-	public List<User> getContributors() {
+	public Set<User> getContributors() {
 		return contributors;
 	}
 
-	public void setContributors(List<User> contributors) {
+	public void setContributors(Set<User> contributors) {
 		this.contributors = contributors;
+	}
+
+	public void addContributor(User user) {
+		if (contributors == null) {
+			contributors = new HashSet<User>();
+		}
+		if (!contributors.contains(user)) {
+			contributors.add(user);
+		}
+	}
+
+	public void removeContributor(User user) {
+		if (contributors != null) {
+			contributors.remove(user);
+		}
+	}
+
+	public void addQuestion(Question q) {
+		if (questions == null) {
+			questions = new HashSet<Question>();
+		}
+		if (!questions.contains(q)) {
+			questions.add(q);
+		}
+	}
+
+	public void removeQuestion(Question q) {
+		if (questions != null) {
+			questions.remove(q);
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Survey other = (Survey) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 	@Override

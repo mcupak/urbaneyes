@@ -2,7 +2,7 @@ package edu.toronto.ece1778.urbaneyes.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +36,7 @@ public class Submission implements Serializable {
 	private Point point;
 
 	@OneToMany
-	private List<Answer> answers;
+	private Set<Answer> answers;
 
 	@ManyToOne
 	private Survey survey;
@@ -44,7 +44,7 @@ public class Submission implements Serializable {
 	public Submission() {
 	}
 
-	public Submission(User user, Date date, Point point, List<Answer> answers,
+	public Submission(User user, Date date, Point point, Set<Answer> answers,
 			Survey survey) {
 		super();
 		this.user = user;
@@ -86,11 +86,11 @@ public class Submission implements Serializable {
 		this.point = point;
 	}
 
-	public List<Answer> getAnswers() {
+	public Set<Answer> getAnswers() {
 		return answers;
 	}
 
-	public void setAnswers(List<Answer> answers) {
+	public void setAnswers(Set<Answer> answers) {
 		this.answers = answers;
 	}
 

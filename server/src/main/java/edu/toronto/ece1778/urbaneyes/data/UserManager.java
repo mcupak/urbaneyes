@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 
 import org.jboss.solder.logging.Logger;
 
+import edu.toronto.ece1778.urbaneyes.model.Survey;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
 @Stateless
@@ -33,9 +34,9 @@ public class UserManager {
 	@Produces
 	@Model
 	public List<User> getUsers() {
-		CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(User.class));
-		return em.createQuery(cq).getResultList();
+		TypedQuery<User> query = em.createQuery(
+				"SELECT m FROM User m ORDER BY m.name", User.class);
+		return query.getResultList();
 	}
 
 	public User getUser(String email, String password) {

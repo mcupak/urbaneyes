@@ -31,6 +31,9 @@ public class StateBean implements Serializable {
 	private List<Submission> submissions = null;
 	private List<Submission> userSubmissions = null;
 	private User user = null;
+	private Long surveyForEditId = null;
+	private boolean edit = false;
+	private boolean editQuestions = false;
 
 	public Survey getSurveyForSubmissions() {
 		return surveyForSubmissions;
@@ -96,6 +99,38 @@ public class StateBean implements Serializable {
 
 	public void setUserSubmissions(List<Submission> userSubmissions) {
 		this.userSubmissions = userSubmissions;
+	}
+
+	public boolean isEdit() {
+		return edit;
+	}
+
+	public boolean isEditQuestions() {
+		return editQuestions;
+	}
+
+	public void setEditQuestions(boolean editQuestions) {
+		this.editQuestions = editQuestions;
+	}
+
+	public void setEdit(boolean edit) {
+		this.edit = edit;
+	}
+
+	public Long getSurveyForEditId() {
+		return surveyForEditId;
+	}
+
+	public void setSurveyForEditId(Long surveyForEditId) {
+		this.surveyForEditId = surveyForEditId;
+	}
+
+	public String selectSurvey(Long surveyForEditId, boolean edit,
+			boolean editQuestions) {
+		this.edit = edit;
+		this.editQuestions = editQuestions;
+		this.surveyForEditId = surveyForEditId;
+		return "/survey.xhtml?faces-redirect=true";
 	}
 
 }

@@ -63,12 +63,21 @@
 						<f:facet name="header">
 							<h:outputText value="Actions" />
 						</f:facet>
+						<h:commandLink value="VIEW"
+							action="#{stateBean.selectSurvey(s.id, false, false)}" />
+						<h:outputText value=" " />
+						<h:commandLink value="EDIT"
+							action="#{stateBean.selectSurvey(s.id, true, false)}" />
+						<h:outputText value=" " />
 						<a href="#{request.contextPath}/rest/surveys/#{s.id}/">XML</a>
 					</rich:column>
 					<f:facet name="footer">
 						<rich:dataScroller id="scroller" />
 					</f:facet>
 				</rich:dataTable>
+				<p>
+					<h:commandButton value="Create a new survey" action="#{stateBean.selectSurvey(-1, true, true)}" />
+				</p>
 			</rich:panel>
 		</h:form>
 	</ui:define>

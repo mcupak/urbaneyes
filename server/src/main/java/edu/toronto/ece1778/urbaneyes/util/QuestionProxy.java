@@ -1,44 +1,26 @@
-package edu.toronto.ece1778.urbaneyes.model;
+package edu.toronto.ece1778.urbaneyes.util;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import edu.toronto.ece1778.urbaneyes.model.AnswerType;
+import edu.toronto.ece1778.urbaneyes.model.Question;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-@Entity
-@XmlRootElement
-public class Question implements Serializable {
+public class QuestionProxy implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue
 	private Long id;
-
-	@NotNull
-	@NotEmpty
 	private String name;
 
-	@NotNull
 	private AnswerType answerType;
 
-	@OneToMany
-	private Set<Option> options;
-
-	public Question() {
+	public QuestionProxy() {
+		id = Long.valueOf(-1);
+		answerType = AnswerType.YESNO;
 	}
 
-	public Question(String name, AnswerType answerType, Set<Option> options) {
-		super();
-		this.name = name;
-		this.answerType = answerType;
-		this.options = options;
+	public QuestionProxy(Question q) {
+		name = q.getName();
+		answerType = q.getAnswerType();
 	}
 
 	public Long getId() {
@@ -65,19 +47,14 @@ public class Question implements Serializable {
 		this.answerType = answerType;
 	}
 
-	public Set<Option> getOptions() {
-		return options;
-	}
-
-	public void setOptions(Set<Option> options) {
-		this.options = options;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((answerType == null) ? 0 : answerType.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -89,18 +66,26 @@ public class Question implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Question other = (Question) obj;
+		QuestionProxy other = (QuestionProxy) obj;
+		if (answerType != other.answerType)
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", name=" + name + ", answerType="
-				+ answerType + ", options=" + options + "]";
+		return "QuestionProxy [id=" + id + ", name=" + name + ", answerType="
+				+ answerType + "]";
 	}
+
 }

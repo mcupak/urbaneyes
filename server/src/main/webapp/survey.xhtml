@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:s="http://jboss.org/seam/faces">
+
+	<ui:define name="head">
+		<f:metadata>
+			<s:viewAction
+				action="#{viewBean.loadSurvey(stateBean.surveyForEditId, identity.user.id)}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<rich:panel style="margin-top: 12px;width: 100%;">
+				<f:facet name="header">
+					<h:outputText value="Survey details..."></h:outputText>
+				</f:facet>
+				<h:inputHidden value="#{viewBean.survey.id}" />
+				<h:inputHidden value="#{viewBean.survey.owner}" />
+				<table>
+					<tr>
+						<td>Name:</td>
+						<td><h:inputText value="#{viewBean.survey.name}"
+								rendered="#{stateBean.edit}" /> <h:outputText
+								value="#{viewBean.survey.name}" rendered="#{not stateBean.edit}" />
+						</td>
+					</tr>
+					<tr>
+						<td>Description:</td>
+						<td><h:inputText value="#{viewBean.survey.description}"
+								rendered="#{stateBean.edit}" /> <h:outputText
+								value="#{viewBean.survey.description}"
+								rendered="#{not stateBean.edit}" /></td>
+					</tr>
+					<tr>
+						<td>Privacy status:</td>
+						<td><h:selectOneRadio value="#{viewBean.survey.priv}">
+								<f:selectItem itemLabel="private" itemValue="#{true}" />
+								<f:selectItem itemLabel="public" itemValue="#{false}" />
+							</h:selectOneRadio></td>
+					</tr>
+					<tr>
+						<td>Questions:</td>
+						<td>
+							<table>
+								<tr>
+									<td><rich:dataTable id="questionsTable" var="s"
+											value="#{viewBean.survey.questions}" style="width:100%;">
+											<rich:column id="name">
+												<f:facet name="header">
+													<h:outputText value="Title" />
+												</f:facet>
+												<h:outputText value="#{s.name}" />
+											</rich:column>
+											<rich:column id="answerType">
+												<f:facet name="header">
+													<h:outputText value="Answer type" />
+												</f:facet>
+												<h:outputText value="#{s.answerType}" />
+											</rich:column>
+											<rich:column id="actions"
+												rendered="#{stateBean.editQuestions}">
+												<f:facet name="header">
+													<h:outputText value="Actions" />
+												</f:facet>
+												<h:commandLink action="#{viewBean.removeQuestion(s.id)}"
+													value="Remove" />
+											</rich:column>
+										</rich:dataTable></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td><rich:inplaceInput
+											defaultLabel="click to enter question"
+											value="#{viewBean.newQuestion.name}"
+											rendered="#{stateBean.editQuestions}" style="width:95%;" /></td>
+									<td><rich:select
+											value="#{viewBean.newQuestion.answerType}"
+											rendered="#{stateBean.editQuestions}">
+											<f:selectItems value="#{viewBean.answerTypes}" var="n"
+												itemLabel="#{n}" />
+										</rich:select></td>
+									<td><h:commandButton value="Add"
+											action="#{viewBean.addQuestion}" style="margin-top: 6px;"
+											rendered="#{stateBean.editQuestions}" /></td>
+								</tr>
+							</table>
+					</td>
+					</tr>
+					<tr>
+						<td>Contributors:</td>
+						<td>
+							<table>
+								<tr>
+									<td><rich:dataTable id="contributorsTable" var="s"
+											value="#{viewBean.survey.contributors}" style="width:100%;">
+											<rich:column id="name">
+												<f:facet name="header">
+													<h:outputText value="Name" />
+												</f:facet>
+												<h:outputText value="#{s.name}" />
+											</rich:column>
+											<rich:column id="actions" rendered="#{stateBean.edit}">
+												<f:facet name="header">
+													<h:outputText value="Actions" />
+												</f:facet>
+												<h:commandLink action="#{viewBean.removeContributor(s.id)}"
+													value="Remove" />
+											</rich:column>
+										</rich:dataTable></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td><rich:select enableManualInput="true"
+											value="#{viewBean.newUser}"
+											defaultLabel="start typing to select"
+											converter="userConverter" rendered="#{stateBean.edit}">
+											<f:selectItems value="#{users}" var="n" itemLabel="#{n.name}" />
+										</rich:select></td>
+									<td><h:commandButton value="Add"
+											action="#{viewBean.addContributor}" style="margin-top: 6px;"
+											rendered="#{stateBean.edit}" /></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<p>
+					<rich:messages />
+				</p>
+
+				<h:commandButton value="Save" action="#{viewBean.saveSurvey}"
+					rendered="#{stateBean.edit}" />
+				<h:button value="Cancel" outcome="/mysurveys.xhtml?faces-redirect=true" />
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
