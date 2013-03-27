@@ -68,6 +68,14 @@ public class SurveyManager {
 		return query.getResultList();
 	}
 
+	public List<Survey> getPublicSurveys() {
+		TypedQuery<Survey> query = em.createQuery(
+				"SELECT m FROM Survey m WHERE m.priv = false ORDER BY m.name",
+				Survey.class);
+
+		return query.getResultList();
+	}
+
 	public void addSurvey(Survey survey) {
 		if (survey != null) {
 			em.persist(survey);

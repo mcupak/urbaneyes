@@ -18,7 +18,9 @@
 								value="#{stateBean.surveyForSubmissions}"
 								defaultLabel="start typing to select"
 								converter="surveyConverter">
-								<f:selectItems value="#{surveys}" var="n" itemLabel="#{n.name}" />
+								<f:selectItems
+									value="#{stateBean.getAvailableSurveys(identity.user.id)}"
+									var="n" itemLabel="#{n.name}" />
 							</rich:select></td>
 						<td><h:commandButton value="Load"
 								action="#{stateBean.loadSubmissions}" style="margin-top: 6px;" /></td>
@@ -52,12 +54,12 @@
 						sortOrder="#{submissionSortingBean.userOrder}"
 						filter="#{submissionFilteringBean.userFilterImpl}">
 						<f:facet name="header">
-						<a4j:commandLink value="Contributor" render="table"
-							action="#{submissionSortingBean.sortByUser}" />
-						<h:outputText value=": " />
-						<h:inputText value="#{submissionFilteringBean.userFilter}">
-							<a4j:ajax event="blur" render="table" execute="@this" />
-						</h:inputText>
+							<a4j:commandLink value="Contributor" render="table"
+								action="#{submissionSortingBean.sortByUser}" />
+							<h:outputText value=": " />
+							<h:inputText value="#{submissionFilteringBean.userFilter}">
+								<a4j:ajax event="blur" render="table" execute="@this" />
+							</h:inputText>
 						</f:facet>
 						<h:outputText value="#{s.user.name}" />
 					</rich:column>

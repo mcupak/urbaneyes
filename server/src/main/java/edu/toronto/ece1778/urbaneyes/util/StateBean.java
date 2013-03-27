@@ -62,10 +62,14 @@ public class StateBean implements Serializable {
 	}
 
 	public List<Survey> getAvailableSurveys(String userId) {
-		if (user == null) {
-			user = um.getUser(Long.valueOf(userId));
+		if (userId == null || userId.isEmpty()) {
+			return sem.getPublicSurveys();
+		} else {
+			if (user == null) {
+				user = um.getUser(Long.valueOf(userId));
+			}
+			return sem.getAvailableSurveys(user);
 		}
-		return sem.getAvailableSurveys(user);
 	}
 
 	public List<Survey> getSurveysByOwner(String userId) {
