@@ -10,13 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
-import org.jboss.solder.logging.Logger;
-
-import edu.toronto.ece1778.urbaneyes.model.Submission;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
@@ -26,8 +20,6 @@ public class SurveyManager {
 
 	@Inject
 	private EntityManager em;
-	@Inject
-	private Logger log;
 
 	public Survey getSurvey(Long id) {
 		return em.find(Survey.class, id);

@@ -5,12 +5,13 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import edu.toronto.ece1778.urbaneyes.data.SurveyManager;
+import edu.toronto.ece1778.urbaneyes.data.UserManager;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 
 /**
@@ -20,14 +21,14 @@ import edu.toronto.ece1778.urbaneyes.model.Survey;
 @RequestScoped
 public class SurveyResourceRESTService {
 	@Inject
-	private EntityManager em;
+	private SurveyManager sm;
+	@Inject
+	private UserManager um;
 
 	@GET
 	@Produces("text/xml")
 	public List<SurveyItem> listAllSurveys() {
-		@SuppressWarnings("unchecked")
-		final List<Survey> results = em.createQuery(
-				"select m from Survey m order by m.name").getResultList();
+		final List<Survey> results = sm.getSurveys();
 		List<SurveyItem> items = new ArrayList<SurveyItem>();
 		for (Survey s : results) {
 			items.add(new SurveyItem(s));
@@ -39,6 +40,18 @@ public class SurveyResourceRESTService {
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("text/xml")
 	public Survey lookupSurveyById(@PathParam("id") long id) {
-		return em.find(Survey.class, id);
+		return sm.getSurvey(id);
+	}
+
+	@GET
+	@Path("/user-{id:[0-9][0-9]*}")
+	@Produces("text/xml")
+	public List<SurveyItem> lookupSurveyByUserId(@PathParam("id") long id) {
+		final List<Survey> results = sm.getAvailableSurveys(um.getUser(id));
+		List<SurveyItem> items = new ArrayList<SurveyItem>();
+		for (Survey s : results) {
+			items.add(new SurveyItem(s));
+		}
+		return items;
 	}
 }
