@@ -32,9 +32,11 @@ public class StateBean implements Serializable {
 	private List<Submission> userSubmissions = null;
 	private User user = null;
 	private Long surveyForEditId = null;
+	private Long submissionForEditId = null;
 	private boolean edit = false;
 	private boolean editQuestions = false;
 	private boolean mySurveysView = true;
+	private boolean mySubmissionsView = true;
 	private String problem = "";
 
 	public Survey getSurveyForSubmissions() {
@@ -131,8 +133,24 @@ public class StateBean implements Serializable {
 		this.surveyForEditId = surveyForEditId;
 	}
 
+	public Long getSubmissionForEditId() {
+		return submissionForEditId;
+	}
+
+	public void setSubmissionForEditId(Long submissionForEditId) {
+		this.submissionForEditId = submissionForEditId;
+	}
+
 	public boolean isMySurveysView() {
 		return mySurveysView;
+	}
+
+	public boolean isMySubmissionsView() {
+		return mySubmissionsView;
+	}
+
+	public void setMySubmissionsView(boolean mySubmissionsView) {
+		this.mySubmissionsView = mySubmissionsView;
 	}
 
 	public void setMySurveysView(boolean mySurveysView) {
@@ -159,6 +177,11 @@ public class StateBean implements Serializable {
 		this.editQuestions = editQuestions;
 		this.surveyForEditId = surveyForEditId;
 		return "/survey.xhtml?faces-redirect=true";
+	}
+
+	public String selectSubmission(Long id) {
+		this.submissionForEditId = id;
+		return "/submission.xhtml?faces-redirect=true";
 	}
 
 }

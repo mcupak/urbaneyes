@@ -1,7 +1,9 @@
 package edu.toronto.ece1778.urbaneyes.util;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -89,15 +91,15 @@ public class DBInitializer {
 		Answer a3 = new Answer("Toronto", q);
 		manager.persist(a3);
 
-		Set<Answer> answers = new HashSet<Answer>();
+		List<Answer> answers = new ArrayList<Answer>();
 		answers.add(a);
 		Submission su = new Submission(u, new Date(), p, answers, s);
 		manager.persist(su);
-		answers = new HashSet<Answer>();
+		answers = new ArrayList<Answer>();
 		answers.add(a2);
 		Submission su2 = new Submission(u2, new Date(), p, answers, s);
 		manager.persist(su2);
-		answers = new HashSet<Answer>();
+		answers = new ArrayList<Answer>();
 		answers.add(a3);
 		Submission su3 = new Submission(u3, new Date(), p, answers, s);
 		manager.persist(su3);

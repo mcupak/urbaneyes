@@ -5,7 +5,14 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:s="http://jboss.org/seam/faces">
+	<ui:define name="head">
+		<f:metadata>
+			<s:viewAction action="#{stateBean.setMySubmissionsView(true)}" />
+		</f:metadata>
+	</ui:define>
 	<ui:define name="content">
 		<h:form>
 			<rich:panel style="margin-top: 12px;width:280px;">
@@ -68,6 +75,9 @@
 						<f:facet name="header">
 							<h:outputText value="Actions" />
 						</f:facet>
+						<h:commandLink value="VIEW"
+							action="#{stateBean.selectSubmission(s.id)}" />
+						<h:outputText value=" " />
 						<a href="#{request.contextPath}/rest/submissions/#{s.id}/">XML</a>
 					</rich:column>
 					<f:facet name="footer">

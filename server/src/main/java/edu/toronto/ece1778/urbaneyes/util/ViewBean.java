@@ -6,9 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,6 +17,7 @@ import edu.toronto.ece1778.urbaneyes.data.UserManager;
 import edu.toronto.ece1778.urbaneyes.model.AnswerType;
 import edu.toronto.ece1778.urbaneyes.model.Option;
 import edu.toronto.ece1778.urbaneyes.model.Question;
+import edu.toronto.ece1778.urbaneyes.model.Submission;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
@@ -40,6 +39,7 @@ public class ViewBean implements Serializable {
 	private List<AnswerType> answerTypes;
 
 	private SurveyProxy survey = null;
+	private Submission submission = null;
 	private User newUser = null;
 	private QuestionProxy newQuestion = null;
 
@@ -58,6 +58,10 @@ public class ViewBean implements Serializable {
 		} else {
 			loadSurvey(surveyId);
 		}
+	}
+
+	public void loadSubmission(Long id) {
+		submission = sm.getSubmission(id);
 	}
 
 	private void newSurvey(String userId) {
@@ -177,6 +181,14 @@ public class ViewBean implements Serializable {
 
 	public void setSurvey(SurveyProxy survey) {
 		this.survey = survey;
+	}
+
+	public Submission getSubmission() {
+		return submission;
+	}
+
+	public void setSubmission(Submission submission) {
+		this.submission = submission;
 	}
 
 	public User getNewUser() {
