@@ -2,7 +2,10 @@ package edu.toronto.ece1778.urbaneyes.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -22,7 +25,7 @@ import edu.toronto.ece1778.urbaneyes.model.Survey;
  * Servlet for conversion of data to CSV format.
  * 
  * @author mcupak
- *
+ * 
  */
 @WebServlet(value = "/csv", name = "csvservlet")
 public class CSVServlet extends HttpServlet {
@@ -30,6 +33,7 @@ public class CSVServlet extends HttpServlet {
 	public static final String SURVEY_PARAM = "sur";
 	public static final String SUBMISSION_PARAM = "sum";
 	private static final long serialVersionUID = 1L;
+	private List<Long> questionList = new ArrayList<Long>();
 
 	@Inject
 	private SubmissionManager subm;
@@ -40,7 +44,10 @@ public class CSVServlet extends HttpServlet {
 		StringBuilder output = new StringBuilder();
 		output.append("ID,DATE,SURVEY_ID,LAT,LON,ALT,");
 		for (Question q : s.getQuestions()) {
-			output.append("QUESTION_ID,ANSWER,");
+			// create ordering of questions
+			questionList.add(q.getId());
+
+			output.append("QUESTION_" + q.getId().toString() + ",ANSWER,");
 		}
 		output.append("USER\n");
 
@@ -55,10 +62,17 @@ public class CSVServlet extends HttpServlet {
 		output.append(s.getPoint().getLatitude() + ",");
 		output.append(s.getPoint().getLongitude() + ",");
 		output.append(s.getPoint().getAltitude() + ",");
+
+		// we need ordering of answers to preserve columns in the output
+		Map<Long, Answer> answerMap = new HashMap<Long, Answer>();
 		for (Answer a : s.getAnswers()) {
-			output.append(a.getQuestion().getId() + ",");
-			output.append("\"" + a.getName() + "\",");
+			answerMap.put(a.getQuestion().getId(), a);
 		}
+		for (Long l : questionList) {
+			output.append(l + ",");
+			output.append("\"" + answerMap.get(l).getName() + "\",");
+		}
+
 		output.append("\"" + s.getUser().getEmail() + "\"\n");
 
 		return output.toString();
@@ -67,6 +81,8 @@ public class CSVServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/csv");
+		response.setHeader("Content-Disposition", "attachment;filename=\""
+				+ "data.csv" + "\"");
 		PrintWriter out = response.getWriter();
 
 		Long surveyId = null;
