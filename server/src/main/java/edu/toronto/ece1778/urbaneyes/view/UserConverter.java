@@ -1,4 +1,4 @@
-package edu.toronto.ece1778.urbaneyes.util;
+package edu.toronto.ece1778.urbaneyes.view;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

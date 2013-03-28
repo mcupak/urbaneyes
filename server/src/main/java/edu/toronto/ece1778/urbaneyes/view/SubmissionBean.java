@@ -1,4 +1,4 @@
-package edu.toronto.ece1778.urbaneyes.util;
+package edu.toronto.ece1778.urbaneyes.view;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -14,6 +14,7 @@ import org.richfaces.component.SortOrder;
 import com.google.common.collect.Maps;
 
 import edu.toronto.ece1778.urbaneyes.model.Submission;
+import edu.toronto.ece1778.urbaneyes.util.JPADataModel;
 
 @Named
 @SessionScoped
