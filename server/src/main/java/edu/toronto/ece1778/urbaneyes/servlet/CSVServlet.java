@@ -43,11 +43,12 @@ public class CSVServlet extends HttpServlet {
 	private String generateHeader(Survey s) {
 		StringBuilder output = new StringBuilder();
 		output.append("ID,DATE,SURVEY_ID,LAT,LON,ALT,");
+		questionList = new ArrayList<Long>();
 		for (Question q : s.getQuestions()) {
 			// create ordering of questions
 			questionList.add(q.getId());
 
-			output.append("QUESTION_" + q.getId().toString() + ",ANSWER,");
+			output.append("QUESTION_" + q.getId().toString() + ",");
 		}
 		output.append("USER\n");
 
@@ -69,7 +70,6 @@ public class CSVServlet extends HttpServlet {
 			answerMap.put(a.getQuestion().getId(), a);
 		}
 		for (Long l : questionList) {
-			output.append(l + ",");
 			output.append("\"" + answerMap.get(l).getName() + "\",");
 		}
 
@@ -110,6 +110,7 @@ public class CSVServlet extends HttpServlet {
 			} else if (submissionId != null) {
 				Submission i = subm.getSubmission(submissionId);
 				if (i != null) {
+					out.write(generateHeader(i.getSurvey()));
 					out.write(getAsCSV(i));
 				}
 			} else {
