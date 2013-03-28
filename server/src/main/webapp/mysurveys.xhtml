@@ -80,6 +80,8 @@
 							action="#{viewBean.removeSurvey(s.id)}" />
 						<h:outputText value=" " />
 						<a href="#{request.contextPath}/rest/surveys/#{s.id}/">XML</a>
+						<h:outputText value=" " />
+						<a href="#{request.contextPath}/csv?sur=#{s.id}">CSV</a>
 					</rich:column>
 					<f:facet name="footer">
 						<rich:dataScroller id="scroller" />

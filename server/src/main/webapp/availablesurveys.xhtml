@@ -8,10 +8,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:s="http://jboss.org/seam/faces">
-		<ui:define name="head">
+	<ui:define name="head">
 		<f:metadata>
-			<s:viewAction
-				action="#{stateBean.setMySurveysView(false)}" />
+			<s:viewAction action="#{stateBean.setMySurveysView(false)}" />
 		</f:metadata>
 	</ui:define>
 	<ui:define name="content">
@@ -75,6 +74,8 @@
 							action="#{stateBean.selectSurvey(s.id, false, false)}" />
 						<h:outputText value=" " />
 						<a href="#{request.contextPath}/rest/surveys/#{s.id}/">XML</a>
+						<h:outputText value=" " />
+						<a href="#{request.contextPath}/csv?sur=#{s.id}">CSV</a>
 					</rich:column>
 					<f:facet name="footer">
 						<rich:dataScroller id="scroller" />
