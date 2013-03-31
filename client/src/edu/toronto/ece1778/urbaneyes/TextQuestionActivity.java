@@ -2,13 +2,16 @@ package edu.toronto.ece1778.urbaneyes;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.Editable;
 import android.view.Menu;
 import com.actionbarsherlock.app.SherlockActivity;
 
-import edu.toronto.ece1778.urbaneyes.common.Question;
+import edu.toronto.ece1778.urbaneyes.model.Answer;
+import edu.toronto.ece1778.urbaneyes.model.Question;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -29,10 +32,11 @@ public class TextQuestionActivity extends SherlockActivity {
 
 		q = SurveyStateHolder.getCurrentQuestion();
 		
-		tvQuestion = (TextView) findViewById(R.id.number_question);
+		tvQuestion = (TextView) findViewById(R.id.text_question);
 		tvQuestion.setText(q.getDesc());
 		
-		etText = (EditText) findViewById(R.id.editTextNumber);
+		etText = (EditText) findViewById(R.id.editTextText);
+		etText.setHint("");
 		
 		submit = (Button) findViewById(R.id.buttonSubmit);
 		
@@ -49,9 +53,21 @@ public class TextQuestionActivity extends SherlockActivity {
 
 	public void onClickSubmitButton(View arg1) {
 		// TODO send survey result to server
-		String value = etText.getText().toString();
-		
-		finish();
+		Editable ed = etText.getText();
+		if (ed != null && !ed.toString().isEmpty()) {
+			String value = etText.getText().toString();
+			
+			Intent returnIntent = new Intent();
+			setResult(RESULT_OK, returnIntent);
+
+			Answer a = new Answer();
+			a.answer = value;
+			a.questionId = q.getId();
+			a.surveyTypeId = SurveyStateHolder.getCurrentSurveyType().getId();
+			SurveyStateHolder.addAnswer(a);
+			
+			finish();
+		}
 	}
 	
 }

@@ -1,5 +1,11 @@
 package edu.toronto.ece1778.urbaneyes;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -195,22 +201,27 @@ public class LoginActivity extends SherlockActivity {
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
 
+			HttpURLConnection conn = null;
 			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
+				String urlString = "http://urbaneyes-mcupak.rhcloud.com/auth?user=" + LoginActivity.this.mEmail + "&pass=" + LoginActivity.this.mPassword;
+		    	URL url = new URL(urlString);
+		    	conn = (HttpURLConnection) url.openConnection();
+		    	conn.setRequestMethod("GET");
+		    	conn.connect();
+		    	InputStream stream = conn.getInputStream();
+		    	BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+		    	String line = br.readLine();
+		    	if (line.equals("ACCESS_DENIED"))
+		    		return false;
+		    	int userId = Integer.parseInt(line);
+		    	SurveyStateHolder.setUserId(userId);
+	 
+			} catch (Exception e) {
 				return false;
+			} finally {
+				if (conn != null)
+					conn.disconnect();
 			}
-
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
-
-			// TODO: register the new account here.
 			return true;
 		}
 

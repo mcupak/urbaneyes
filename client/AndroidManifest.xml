@@ -84,6 +84,10 @@
             android:name="edu.toronto.ece1778.urbaneyes.RadioGroupQuestionActivity"
             android:label="@string/title_activity_radio_group_question" >
         </activity>
-    </application>
+        <activity
+            android:name="edu.toronto.ece1778.urbaneyes.CountActivity"
+            android:label="@string/title_activity_counter_question" >
+        </activity>
+        </application>
 
 </manifest>
