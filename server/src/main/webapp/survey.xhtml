@@ -139,10 +139,10 @@
 
 				<h:commandButton value="Save" action="#{viewBean.saveSurvey}"
 					rendered="#{stateBean.edit}" />
-				<h:button value="Cancel"
+				<h:button value="Back"
 					outcome="/mysurveys.xhtml?faces-redirect=true"
 					rendered="#{stateBean.mySurveysView}" />
-				<h:button value="Cancel"
+				<h:button value="Back"
 					outcome="/availablesurveys.xhtml?faces-redirect=true"
 					rendered="#{not stateBean.mySurveysView}" />
 			</rich:panel>
