@@ -364,9 +364,11 @@ public class MapActivity extends AbstractMapActivity implements
 		if (requestCode == 1) {
 			if (resultCode == RESULT_OK) {
 				// String result=data.getStringExtra("result");
-				addPoint(map, currentLocation, currentProject,
-						formatSnippet(currentLocation, currentAltitude));
-				sendPointSurveyResults();     // WORKS FOR POINT SURVEY
+				if (SurveyStateHolder.getCurrentSurveyType().getKind() == SurveyKind.POINT) {
+					addPoint(map, currentLocation, currentProject,
+							formatSnippet(currentLocation, currentAltitude));
+					sendPointSurveyResults();     // WORKS FOR POINT SURVEY
+				}
 			}
 			if (resultCode == RESULT_CANCELED) {
 				// clean up
@@ -421,32 +423,33 @@ public class MapActivity extends AbstractMapActivity implements
 		@Override
 		protected Void doInBackground(Void... params) {
 			
-			SurveyPoint prev = new SurveyPoint();
-			prev.latLng = new LatLng(0,0);
-			prev.alt = currentAltitude;
+			LatLng prev = new LatLng(currentLocation.latitude, currentLocation.longitude);
 			final double RADIUS = 6731;
 			final double THRESHOLD = 10;   // meters
-			
+
 			while (!endPath) {
-				double lat1 = Math.toRadians(prev.latLng.latitude);
+				double lat1 = Math.toRadians(prev.latitude);
 				double lat2 = Math.toRadians(currentLocation.latitude);
 				
-				double lon1 = Math.toRadians(prev.latLng.longitude);
+				double lon1 = Math.toRadians(prev.longitude);
 				double lon2 = Math.toRadians(currentLocation.longitude);
 				
 				double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + 
 		                  			 Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2-lon1)) * RADIUS * 1000;
 				if (d >= THRESHOLD) {
+					final LatLng fNewCurrent = new LatLng(currentLocation.latitude, currentLocation.longitude);
+					final LatLng fprev = prev;
+
 					MapActivity.this.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							addPoint(map, currentLocation, currentProject,
-									 formatSnippet(currentLocation, currentAltitude));
-							// TODO : send data for point of current path survey
+							map.addPolyline(new PolylineOptions()
+						     .add(fprev, fNewCurrent)
+						     .width(5)
+						     .color(Color.RED));
 						}
 					});
-					prev.latLng = currentLocation;
-					prev.alt = currentAltitude;
+					prev = fNewCurrent;
 				}
 				try {
 					Thread.sleep(5000);  // sleep for 5 seconds
@@ -529,6 +532,10 @@ public class MapActivity extends AbstractMapActivity implements
 		beginPath = false;
 		endPath = true;
 		invalidateOptionsMenu();
+		if (SurveyStateHolder.getCurrentSurveyType().getQuestions() != null &&
+			SurveyStateHolder.getCurrentSurveyType().getQuestions().size() > 0) {
+			openSurvey();
+		}
 	}
 
 	/* POLYGON code */
@@ -556,38 +563,42 @@ public class MapActivity extends AbstractMapActivity implements
 
 	class TrackPointsOnPolyTask extends AsyncTask<Void, Void, Void> {
 
-		PolygonOptions po;
+		PolygonOptions po = new PolygonOptions();
 
 		@Override
 		protected Void doInBackground(Void... params) {
 			
-			SurveyPoint prev = new SurveyPoint();
-			prev.latLng = new LatLng(0,0);
-			prev.alt = currentAltitude;
+			LatLng prev = new LatLng(currentLocation.latitude, currentLocation.longitude);
 			final double RADIUS = 6731;
 			final double THRESHOLD = 10;   // meters
+
+			final LatLng first = prev;
 			
 			while (!endPoly) {
-				double lat1 = Math.toRadians(prev.latLng.latitude);
+				double lat1 = Math.toRadians(prev.latitude);
 				double lat2 = Math.toRadians(currentLocation.latitude);
 				
-				double lon1 = Math.toRadians(prev.latLng.longitude);
+				double lon1 = Math.toRadians(prev.longitude);
 				double lon2 = Math.toRadians(currentLocation.longitude);
 				
 				double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + 
 		                  			 Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2-lon1)) * RADIUS * 1000;
 				if (d >= THRESHOLD) {
+					final LatLng fNewCurrent = new LatLng(currentLocation.latitude, currentLocation.longitude);
+					final LatLng fprev = prev;
+					
 					MapActivity.this.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
 							po.add(currentLocation);
-							addPoint(map, currentLocation, currentProject,
-									 formatSnippet(currentLocation, currentAltitude));
-							// TODO : send data for point of current path survey
+							map.addPolyline(new PolylineOptions()
+						     .add(fprev, fNewCurrent)
+						     .width(5)
+						     .color(Color.RED));
+
 						}
 					});
-					prev.latLng = currentLocation;
-					prev.alt = currentAltitude;
+					prev = fNewCurrent;
 				}
 				try {
 					Thread.sleep(5000);  // sleep for 5 seconds
@@ -595,6 +606,18 @@ public class MapActivity extends AbstractMapActivity implements
 					
 				}
 			}
+			final LatLng fprev  = prev;
+			MapActivity.this.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					po.add(first);
+					map.addPolyline(new PolylineOptions()
+				     .add(fprev, first)
+				     .width(5)
+				     .color(Color.RED));
+				}
+			});
+
 			MapActivity.this.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
@@ -698,8 +721,8 @@ public class MapActivity extends AbstractMapActivity implements
 		        // Add data
 		        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		        nameValuePairs.add(new BasicNameValuePair("user", String.valueOf(SurveyStateHolder.getUserId())));
-		        Answer a = SurveyStateHolder.getSurveyAnswers().get(0);
-		        nameValuePairs.add(new BasicNameValuePair("sur", String.valueOf(a.surveyTypeId)));
+		        // Answer a = SurveyStateHolder.getSurveyAnswers().get(0);
+		        nameValuePairs.add(new BasicNameValuePair("sur", String.valueOf(SurveyStateHolder.getCurrentSurveyType().getId())));
 		        SurveyPoint sp = SurveyStateHolder.getSurveyPoints().get(0);
 		        nameValuePairs.add(new BasicNameValuePair("alt", String.valueOf(sp.alt)));
 		        nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(sp.latLng.latitude)));
@@ -724,15 +747,15 @@ public class MapActivity extends AbstractMapActivity implements
 		
 		private String getAddress(SurveyPoint sp) {
 			try {
-			Geocoder geocoder;
-			List<Address> addresses;
-			geocoder = new Geocoder(MapActivity.this, Locale.getDefault());
-			addresses = geocoder.getFromLocation(sp.latLng.latitude, sp.latLng.longitude, 1);
-
-			String address = addresses.get(0).getAddressLine(0);
-			String city = addresses.get(0).getAddressLine(1);
-			String country = addresses.get(0).getAddressLine(2);
-			return address;
+				Geocoder geocoder;
+				List<Address> addresses;
+				geocoder = new Geocoder(MapActivity.this, Locale.getDefault());
+				addresses = geocoder.getFromLocation(sp.latLng.latitude, sp.latLng.longitude, 1);
+	
+				String address = addresses.get(0).getAddressLine(0);
+				String city = addresses.get(0).getAddressLine(1);
+				String country = addresses.get(0).getAddressLine(2);
+				return address + ", " + city + ", " + country;
 			
 			} catch (Exception e) {
 				return "";

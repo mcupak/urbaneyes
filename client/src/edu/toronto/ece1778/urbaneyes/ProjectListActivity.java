@@ -70,7 +70,7 @@ public class ProjectListActivity extends SherlockListActivity {
 		// addSubwaySurveyTypeObject();
 		// addFoodVendorSurveyTypeObject();
 		
-		// addCyclePathSurveyTypeObject();
+		addCyclePathSurveyTypeObject();
 		
 		addCyclePathSimulation();
 		
