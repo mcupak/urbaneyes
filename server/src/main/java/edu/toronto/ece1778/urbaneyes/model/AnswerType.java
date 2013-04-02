@@ -6,5 +6,5 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public enum AnswerType implements Serializable {
-	NUMBER, TEXT, YESNO, COUNT, NOISE;
+	NUMBER, TEXT, YESNO, COUNT;
 }
