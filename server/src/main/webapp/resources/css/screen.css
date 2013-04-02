@@ -78,3 +78,7 @@ a {
 .inactive {
 	background-color: rgba(166, 166, 174, 0.26);
 }
+
+.formcell {
+	padding: 4px 28px 5px 0;
+}

@@ -27,43 +27,43 @@
 				<h:inputHidden value="#{viewBean.submission.id}" />
 				<table>
 					<tr>
-						<td>Date:</td>
-						<td><h:outputText value="#{viewBean.submission.date}" /></td>
+						<td class="formcell">Date:</td>
+						<td class="formcell"><h:outputText value="#{viewBean.submission.date}" /></td>
 					</tr>
 					<tr>
-						<td>Author:</td>
-						<td><h:outputText value="#{viewBean.submission.user.name}" />
+						<td class="formcell">Author:</td>
+						<td class="formcell"><h:outputText value="#{viewBean.submission.user.name}" />
 						</td>
 					</tr>
 					<tr>
-						<td>Survey:</td>
-						<td><h:outputText value="#{viewBean.submission.survey.name}" />
+						<td class="formcell">Survey:</td>
+						<td class="formcell"><h:outputText value="#{viewBean.submission.survey.name}" />
 						</td>
 					</tr>
 					<tr>
-						<td>Latitude:</td>
-						<td><h:outputText
+						<td class="formcell">Latitude:</td>
+						<td class="formcell"><h:outputText
 								value="#{viewBean.submission.point.latitude}" /></td>
 					</tr>
 					<tr>
-						<td>Longitude:</td>
-						<td><h:outputText
+						<td class="formcell">Longitude:</td>
+						<td class="formcell"><h:outputText
 								value="#{viewBean.submission.point.longitude}" /></td>
 					</tr>
 					<tr>
-						<td>Altitude:</td>
-						<td><h:outputText
+						<td class="formcell">Altitude:</td>
+						<td class="formcell"><h:outputText
 								value="#{viewBean.submission.point.altitude}" /></td>
 					</tr>
 					<tr>
-						<td>Address:</td>
-						<td><h:outputText
+						<td class="formcell">Address:</td>
+						<td class="formcell"><h:outputText
 								value="#{viewBean.submission.point.address}" /></td>
 					</tr>
 
 					<tr>
-						<td>Answers:</td>
-						<td><rich:dataTable id="answersTable" var="s"
+						<td class="formcell">Answers:</td>
+						<td class="formcell"><rich:dataTable id="answersTable" var="s"
 								value="#{viewBean.submission.answers}" style="width:100%;">
 								<rich:column id="question">
 									<f:facet name="header">
