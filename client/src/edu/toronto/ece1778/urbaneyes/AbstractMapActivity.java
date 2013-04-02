@@ -29,7 +29,8 @@ public class AbstractMapActivity extends SherlockFragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.map, menu);
+		
+		// getSupportMenuInflater().inflate(R.menu.map, menu);   // COMMENTED BY RAVI
 
 		return (super.onCreateOptionsMenu(menu));
 	}

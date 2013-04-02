@@ -2,9 +2,7 @@ package edu.toronto.ece1778.urbaneyes;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
-import edu.toronto.ece1778.urbaneyes.common.AnswerType;
-import edu.toronto.ece1778.urbaneyes.common.Question;
-import edu.toronto.ece1778.urbaneyes.common.SurveyType;
+import edu.toronto.ece1778.urbaneyes.model.*;
 
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -38,21 +36,40 @@ public class StartSurveyActivity extends SherlockActivity {
 			Question q = SurveyStateHolder.getNextQuestion();
 			if (q.getAnsType() == AnswerType.NUMBER) {
 				Intent i = new Intent(this, NumberQuestionActivity.class);
-				startActivityForResult(i, 1);
+				startActivityForResult(i, 2);
 			} else if (q.getAnsType() == AnswerType.TEXT) {
 				Intent i = new Intent(this, TextQuestionActivity.class);
-				startActivityForResult(i, 1);
+				startActivityForResult(i, 2);
 			} else if (q.getAnsType() == AnswerType.RADIOGROUP) {
 				Intent i = new Intent(this, RadioGroupQuestionActivity.class);
-				startActivityForResult(i, 1);
+				startActivityForResult(i, 2);
+			} else if (q.getAnsType() == AnswerType.COUNT) {
+				Intent i = new Intent(this, CountActivity.class);
+				startActivityForResult(i, 2);
 			}
 		} else {
-			SurveyStateHolder.reset();
-			Intent returnIntent = new Intent();
-			setResult(RESULT_OK, returnIntent);
-			SurveyStateHolder.reset();
-			finish();
+			cleanupAndFinish(RESULT_OK);
 		}
 	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 2) {
+			if (resultCode == RESULT_OK) {
+
+			} else if (resultCode == RESULT_CANCELED) {
+				// clean up
+				cleanupAndFinish(RESULT_CANCELED);
+			}
+		}
+	}
+	
+	private void cleanupAndFinish(int result) {
+
+		SurveyStateHolder.reset();
+		Intent returnIntent = new Intent();
+		setResult(result, returnIntent);
+		finish();
+	}
+
 
 }

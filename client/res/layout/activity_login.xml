@@ -40,10 +40,20 @@
             style="@style/LoginFormContainer"
             android:orientation="vertical" >
 
+
+                <ImageView
+                    android:id="@+id/imageLogo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:adjustViewBounds="true"
+
+                    android:src="@drawable/logo" />
+
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
@@ -71,6 +81,7 @@
                 android:paddingRight="32dp"
                 android:text="@string/action_sign_in_register" />
         </LinearLayout>
+
     </ScrollView>
 
 </merge>

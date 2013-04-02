@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 
 import com.actionbarsherlock.app.SherlockActivity;
 
-import edu.toronto.ece1778.urbaneyes.common.Question;
-import edu.toronto.ece1778.urbaneyes.common.RadioGroupQuestion;
-import edu.toronto.ece1778.urbaneyes.common.RadioGroupQuestion.Option;
+import edu.toronto.ece1778.urbaneyes.model.*;
+import edu.toronto.ece1778.urbaneyes.model.RadioGroupQuestion.Option;
 
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +45,9 @@ public class RadioGroupQuestionActivity extends SherlockActivity {
 			RadioButton b = new RadioButton(this);
 			b.setText(o.getDesc());
 			b.setId(i);
+			if (i == 0) {
+				b.setChecked(true);
+			}
 			rg.addView(b);
 			rbl.add(b);
 			i++;
@@ -68,7 +71,16 @@ public class RadioGroupQuestionActivity extends SherlockActivity {
 		int selectedId = rg.getCheckedRadioButtonId();
 		RadioButton b = rbl.get(selectedId);
 		Option so = q.getOptions().get(selectedId);
-		
+
+		Intent returnIntent = new Intent();
+		setResult(RESULT_OK, returnIntent);
+
+		Answer a = new Answer();
+		a.answer = String.valueOf(so.getId());
+		a.questionId = q.getId();
+		a.surveyTypeId = SurveyStateHolder.getCurrentSurveyType().getId();
+		SurveyStateHolder.addAnswer(a);
+
 		finish();
 	}
 	

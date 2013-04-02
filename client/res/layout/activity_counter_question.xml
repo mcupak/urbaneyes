@@ -1,0 +1,64 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    tools:context=".CountActivity" >
+
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+
+	    <TextView
+	        android:id="@+id/text_count_question"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginTop="40dp"
+	        android:text="@string/question" />
+
+	    <TextView
+	        android:id="@+id/text_current_count"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginTop="40dp" />
+
+	    <RelativeLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content">
+
+		    <Button
+		        android:id="@+id/buttonMinusCounter"
+		        android:layout_width="130dip"
+		        android:layout_height="200dip"
+		        android:layout_marginLeft="20dp"
+		        android:layout_marginRight="20dp"
+		        android:layout_marginTop="10dp"
+		        android:onClick="onClickMinusCounterButton"
+		        android:text="@string/minusCounter" />
+	        
+		    <Button
+		        android:id="@+id/buttonPlusCounter"
+		        android:layout_width="130dip"
+		        android:layout_height="200dip"
+		        android:layout_marginLeft="170dp"
+		        android:layout_marginTop="10dp"
+		        android:onClick="onClickPlusCounterButton"
+		        android:text="@string/plusCounter" />
+	        	        
+		    	    
+		</RelativeLayout>
+			    	    	    	    
+	    <Button
+	        android:id="@+id/buttonSubmit"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+	        android:layout_marginTop="40dp"
+	        android:onClick="onClickSubmitButton"
+	        android:text="@string/submit" />
+	    	    
+	</LinearLayout>
+</ScrollView>
