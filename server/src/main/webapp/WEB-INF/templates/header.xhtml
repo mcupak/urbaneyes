@@ -14,11 +14,15 @@
 			<!-- Guest Links -->
 			<div class="title">UrbanEyes</div>
 			<rich:toolbarGroup>
-				<h:link value="Submissions" outcome="/index" />
+				<h:link value="Submissions" outcome="/index"
+					styleClass="menu #{cssBean.checkTab(0) ? 'active' : 'inactive'}" />
 				<c:if test="#{identity.loggedIn}">
-					<h:link value="My Submissions" outcome="/mysubmissions.xhtml" />
-					<h:link value="My Surveys" outcome="/mysurveys.xhtml" />
-					<h:link value="Open Surveys" outcome="/availablesurveys.xhtml" />
+					<h:link value="My Submissions" outcome="/mysubmissions.xhtml"
+						styleClass="menu #{cssBean.checkTab(1) ? 'active' : 'inactive'}" />
+					<h:link value="My Surveys" outcome="/mysurveys.xhtml"
+						styleClass="menu #{cssBean.checkTab(2) ? 'active' : 'inactive'}" />
+					<h:link value="Open Surveys" outcome="/availablesurveys.xhtml"
+						styleClass="menu #{cssBean.checkTab(3) ? 'active' : 'inactive'}" />
 				</c:if>
 			</rich:toolbarGroup>
 

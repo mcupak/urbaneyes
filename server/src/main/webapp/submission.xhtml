@@ -13,6 +13,8 @@
 		<f:metadata>
 			<s:viewAction
 				action="#{viewBean.loadSubmission(stateBean.submissionForEditId)}" />
+			<s:viewAction
+				action="#{cssBean.loadTab(stateBean.mySubmissionsView ? 1 : 0)}" />
 		</f:metadata>
 	</ui:define>
 

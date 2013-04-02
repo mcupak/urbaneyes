@@ -13,6 +13,8 @@
 		<f:metadata>
 			<s:viewAction
 				action="#{viewBean.loadSurvey(stateBean.surveyForEditId, identity.user.id)}" />
+			<s:viewAction
+				action="#{cssBean.loadTab(stateBean.mySurveysView ? 2 : 3)}" />
 		</f:metadata>
 	</ui:define>
 
