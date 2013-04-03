@@ -28,17 +28,18 @@
 				<table>
 					<tr>
 						<td class="formcell">Date:</td>
-						<td class="formcell"><h:outputText value="#{viewBean.submission.date}" /></td>
+						<td class="formcell"><h:outputText
+								value="#{viewBean.submission.date}" /></td>
 					</tr>
 					<tr>
 						<td class="formcell">Author:</td>
-						<td class="formcell"><h:outputText value="#{viewBean.submission.user.name}" />
-						</td>
+						<td class="formcell"><h:outputText
+								value="#{viewBean.submission.user.name}" /></td>
 					</tr>
 					<tr>
 						<td class="formcell">Survey:</td>
-						<td class="formcell"><h:outputText value="#{viewBean.submission.survey.name}" />
-						</td>
+						<td class="formcell"><h:outputText
+								value="#{viewBean.submission.survey.name}" /></td>
 					</tr>
 					<tr>
 						<td class="formcell">Latitude:</td>
@@ -56,15 +57,10 @@
 								value="#{viewBean.submission.point.altitude}" /></td>
 					</tr>
 					<tr>
-						<td class="formcell">Address:</td>
-						<td class="formcell"><h:outputText
-								value="#{viewBean.submission.point.address}" /></td>
-					</tr>
-
-					<tr>
 						<td class="formcell">Answers:</td>
-						<td class="formcell"><rich:dataTable id="answersTable" var="s"
-								value="#{viewBean.submission.answers}" style="width:100%;">
+						<td class="formcell"><rich:dataTable id="answersTable"
+								var="s" value="#{viewBean.submission.answers}"
+								style="width:100%;">
 								<rich:column id="question">
 									<f:facet name="header">
 										<h:outputText value="Question" />

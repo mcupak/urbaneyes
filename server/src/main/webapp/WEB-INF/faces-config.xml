@@ -29,6 +29,6 @@
 	</converter>
 	<converter>
 		<converter-for-class>edu.toronto.ece1778.urbaneyes.model.User</converter-for-class>
-		<converter-class>edu.toronto.ece1778.urbaneyes.util.UserConverter</converter-class>
+		<converter-class>edu.toronto.ece1778.urbaneyes.view.UserConverter</converter-class>
 	</converter>
 </faces-config>

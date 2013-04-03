@@ -91,19 +91,24 @@ public class ViewBean implements Serializable {
 		if (survey.getId() < 0) {
 			// new survey
 			s = new Survey();
-			s.setName(survey.getName());
-			s.setDescription(survey.getDescription());
+			s.setName(survey.getName() == null ? "" : survey.getName());
+			s.setDescription(survey.getDescription() == null ? "" : survey
+					.getDescription());
 			s.setOwner(survey.getOwner());
-			s.setPriv(survey.getPriv());
+			s.setPriv(survey.getPriv() == null ? false : survey.getPriv());
 			Set<User> contrib = new HashSet<User>();
-			contrib.addAll(survey.getContributors());
+			if (survey.getContributors() != null) {
+				contrib.addAll(survey.getContributors());
+			}
 			s.setContributors(contrib);
 			Set<Question> qs = new HashSet<Question>();
-			for (QuestionProxy q : survey.getQuestions()) {
-				Question n = new Question(q.getName(), q.getAnswerType(),
-						new HashSet<Option>());
-				qm.addQuestion(n);
-				qs.add(n);
+			if (survey.getQuestions() != null) {
+				for (QuestionProxy q : survey.getQuestions()) {
+					Question n = new Question(q.getName(), q.getAnswerType(),
+							new HashSet<Option>());
+					qm.addQuestion(n);
+					qs.add(n);
+				}
 			}
 			s.setQuestions(qs);
 			sem.addSurvey(s);
@@ -116,7 +121,9 @@ public class ViewBean implements Serializable {
 				s.setOwner(survey.getOwner());
 				s.setPriv(survey.getPriv());
 				Set<User> contrib = new HashSet<User>();
-				contrib.addAll(survey.getContributors());
+				if (survey.getContributors() != null) {
+					contrib.addAll(survey.getContributors());
+				}
 				s.setContributors(contrib);
 
 				sem.editSurvey(s);
