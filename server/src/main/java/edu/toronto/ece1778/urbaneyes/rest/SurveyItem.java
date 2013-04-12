@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 
 /**
- * Short representation of a survey for the purpose of a survey list.
+ * Short proxy representation of a survey for the purpose of a survey list.
  * 
  * @author mcupak
  * 

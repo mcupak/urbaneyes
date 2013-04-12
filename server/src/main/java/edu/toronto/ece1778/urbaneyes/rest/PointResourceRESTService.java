@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import edu.toronto.ece1778.urbaneyes.model.Point;
 
 /**
- * RESTful service to read the contents of the members table.
+ * RESTful service to expose points via XML.
  */
 @Path("/points")
 @RequestScoped
@@ -21,6 +21,11 @@ public class PointResourceRESTService {
 	@Inject
 	private EntityManager em;
 
+	/**
+	 * Exposes all the points in the database via XMl.
+	 * 
+	 * @return list of all the points
+	 */
 	@GET
 	@Produces("text/xml")
 	public List<Point> listAllPoints() {
@@ -30,6 +35,13 @@ public class PointResourceRESTService {
 		return results;
 	}
 
+	/**
+	 * Looks up a point by its ID and exposes it via XML.
+	 * 
+	 * @param id
+	 *            point id
+	 * @return point with the given ID
+	 */
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("text/xml")

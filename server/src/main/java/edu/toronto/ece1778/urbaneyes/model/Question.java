@@ -12,6 +12,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * Question in a survey.
+ * 
+ * @author mcupak
+ * 
+ */
 @Entity
 @XmlRootElement
 public class Question implements Serializable {

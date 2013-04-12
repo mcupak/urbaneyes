@@ -10,6 +10,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * An option as a possible answer for a question. Used when a question specifies
+ * a type of answer allowing a selection from a custom fixed set of options on
+ * the user side.
+ * 
+ * @author mcupak
+ * 
+ */
 @Entity
 @XmlRootElement
 public class Option implements Serializable {

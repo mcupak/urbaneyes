@@ -9,6 +9,12 @@ import javax.inject.Inject;
 import edu.toronto.ece1778.urbaneyes.data.UserManager;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
+/**
+ * JSF converter of user objects so that they can be properly displayed.
+ * 
+ * @author mcupak
+ * 
+ */
 @FacesConverter(value = "userConverter")
 public class UserConverter implements Converter {
 

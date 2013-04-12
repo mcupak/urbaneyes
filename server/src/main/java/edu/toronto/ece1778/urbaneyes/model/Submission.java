@@ -18,6 +18,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+/**
+ * Individual submission of answers to a survey. Multiple answers and a location
+ * are associated with a submission.
+ * 
+ * @author mcupak
+ * 
+ */
 @Entity
 @XmlRootElement
 public class Submission implements Serializable {

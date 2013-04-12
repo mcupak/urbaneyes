@@ -9,6 +9,13 @@ import org.richfaces.model.Filter;
 
 import edu.toronto.ece1778.urbaneyes.model.Submission;
 
+/**
+ * Bean responsible for filtering of submissions when displayed in a table with
+ * filtering capabilities in JSF.
+ * 
+ * @author mcupak
+ * 
+ */
 @Named
 @ViewScoped
 public class SubmissionFilteringBean implements Serializable {

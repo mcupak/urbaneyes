@@ -7,6 +7,12 @@ import javax.inject.Named;
 
 import org.richfaces.component.SortOrder;
 
+/**
+ * Bean responsible for sorting of surveys when displayed in a table.
+ * 
+ * @author mcupak
+ * 
+ */
 @Named
 @ViewScoped
 public class SurveySortingBean implements Serializable {
@@ -15,6 +21,9 @@ public class SurveySortingBean implements Serializable {
 	private SortOrder privOrder = SortOrder.unsorted;
 	private SortOrder descriptionOrder = SortOrder.unsorted;
 
+	/**
+	 * Sets the ordering to name.
+	 */
 	public void sortByName() {
 		privOrder = SortOrder.unsorted;
 		descriptionOrder = SortOrder.unsorted;
@@ -25,6 +34,9 @@ public class SurveySortingBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Sets the ordering to privacy status.
+	 */
 	public void sortByPrivate() {
 		nameOrder = SortOrder.unsorted;
 		descriptionOrder = SortOrder.unsorted;
@@ -35,6 +47,9 @@ public class SurveySortingBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Sets the ordering to description.
+	 */
 	public void sortByDescription() {
 		nameOrder = SortOrder.unsorted;
 		privOrder = SortOrder.unsorted;

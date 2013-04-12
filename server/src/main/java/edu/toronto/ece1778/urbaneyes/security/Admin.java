@@ -7,6 +7,13 @@ import java.lang.annotation.Target;
 
 import org.jboss.seam.security.annotations.SecurityBindingType;
 
+/**
+ * Annotation determining if the user has admin rights. Currently only one type
+ * of role is supported.
+ * 
+ * @author mcupak
+ * 
+ */
 @SecurityBindingType
 @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.PARAMETER,
 		ElementType.FIELD })

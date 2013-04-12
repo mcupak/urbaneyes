@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import edu.toronto.ece1778.urbaneyes.model.Option;
 
 /**
- * RESTful service to read the contents of the members table.
+ * RESTful service to expose options via XML.
  */
 @Path("/options")
 @RequestScoped
@@ -21,6 +21,11 @@ public class OptionResourceRESTService {
 	@Inject
 	private EntityManager em;
 
+	/**
+	 * Exposes all the options in the database via XML.
+	 * 
+	 * @return list of all the options
+	 */
 	@GET
 	@Produces("text/xml")
 	public List<Option> listAllOptions() {
@@ -30,6 +35,13 @@ public class OptionResourceRESTService {
 		return results;
 	}
 
+	/**
+	 * Looks up an option by its ID and exposes it via XMl.
+	 * 
+	 * @param id
+	 *            option id
+	 * @return option with the given ID
+	 */
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("text/xml")

@@ -21,6 +21,12 @@ import edu.toronto.ece1778.urbaneyes.model.Submission;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
+/**
+ * Bean used to store view-specific configuration for JSF.
+ * 
+ * @author mcupak
+ * 
+ */
 @Named
 @ViewScoped
 public class ViewBean implements Serializable {
@@ -52,6 +58,14 @@ public class ViewBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Loads a survey to memory. Used when viewing/editing a survey via JSF.
+	 * 
+	 * @param surveyId
+	 *            ID of a survey to load
+	 * @param userId
+	 *            current user ID
+	 */
 	public void loadSurvey(Long surveyId, String userId) {
 		if (surveyId < 0) {
 			newSurvey(userId);
@@ -60,10 +74,22 @@ public class ViewBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Loads a submission to memory. Used when viewing a submission via JSF.
+	 * 
+	 * @param id
+	 *            ID of a submission to load
+	 */
 	public void loadSubmission(Long id) {
 		submission = sm.getSubmission(id);
 	}
 
+	/**
+	 * Creates a new survey in memory and initializes it.
+	 * 
+	 * @param userId
+	 *            ID of the currently logged in user
+	 */
 	private void newSurvey(String userId) {
 		survey = new SurveyProxy();
 		User owner = um.getUser(Long.valueOf(userId));
@@ -78,6 +104,12 @@ public class ViewBean implements Serializable {
 		survey = new SurveyProxy(sem.getSurvey(id));
 	}
 
+	/**
+	 * Constructs a survey object based on the data from JSF and stores it in
+	 * the database.
+	 * 
+	 * @return page to redirect to
+	 */
 	public String saveSurvey() {
 		// owner should always be able to contribute to its survey
 		if (survey.getContributors() == null) {
@@ -132,6 +164,13 @@ public class ViewBean implements Serializable {
 		return "/mysurveys.xhtml?faces-redirect=true";
 	}
 
+	/**
+	 * Removes the survey from the database.
+	 * 
+	 * @param id
+	 *            ID of a survey passed from JSF
+	 * @return page to redirect to
+	 */
 	public String removeSurvey(Long id) {
 		Survey s = null;
 		if (id != null) {
@@ -150,17 +189,29 @@ public class ViewBean implements Serializable {
 		return "/mysurveys.xhtml?faces-redirect=true";
 	}
 
+	/**
+	 * Adds a new user as a contributor to the current survey.
+	 */
 	public void addContributor() {
 		survey.addContributor(newUser);
 		newUser = null;
 	}
 
+	/**
+	 * Removes a contributor from the current survey.
+	 * 
+	 * @param id
+	 *            user id
+	 */
 	public void removeContributor(Long id) {
 		if (id != null) {
 			survey.removeContributor(um.getUser(id));
 		}
 	}
 
+	/**
+	 * Adds a question to the current survey.
+	 */
 	public void addQuestion() {
 		if (!newQuestion.getName().isEmpty()) {
 			survey.addQuestion(newQuestion);
@@ -168,6 +219,12 @@ public class ViewBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Removes a question from the current survey.
+	 * 
+	 * @param id
+	 *            question id
+	 */
 	public void removeQuestion(Long id) {
 		QuestionProxy q = null;
 		if (id != null) {

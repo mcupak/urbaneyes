@@ -14,7 +14,7 @@ import edu.toronto.ece1778.urbaneyes.data.SurveyManager;
 import edu.toronto.ece1778.urbaneyes.model.Submission;
 
 /**
- * RESTful service to read the contents of the members table.
+ * RESTful service to expose submissions via XML.
  */
 @Path("/submissions")
 @RequestScoped
@@ -24,12 +24,24 @@ public class SubmissionResourceRESTService {
 	@Inject
 	private SurveyManager am;
 
+	/**
+	 * Exposes all the submissions in the database via XML.
+	 * 
+	 * @return list of all the submissions
+	 */
 	@GET
 	@Produces("text/xml")
 	public List<Submission> listAllSubmissions() {
 		return sm.getSubmissions();
 	}
 
+	/**
+	 * Looks up a submission by ID and exposes it via XML.
+	 * 
+	 * @param id
+	 *            submission id
+	 * @return submission with the given ID
+	 */
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("text/xml")
@@ -37,6 +49,13 @@ public class SubmissionResourceRESTService {
 		return sm.getSubmission(id);
 	}
 
+	/**
+	 * Looks up submissions of a survey and exposes them via XML
+	 * 
+	 * @param id
+	 *            survey id
+	 * @return submission of the survey with the given ID
+	 */
 	@GET
 	@Path("/sur-{id:[0-9][0-9]*}")
 	@Produces("text/xml")

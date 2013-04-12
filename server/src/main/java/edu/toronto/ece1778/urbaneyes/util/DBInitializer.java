@@ -22,7 +22,7 @@ import edu.toronto.ece1778.urbaneyes.model.Survey;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
 /**
- * Fills database with demo records.
+ * Initializer of the database with demo records.
  * 
  */
 @Singleton
@@ -32,6 +32,9 @@ public class DBInitializer {
 	@PersistenceContext
 	private EntityManager manager;
 
+	/**
+	 * Initializes the database at startup/deployment.
+	 */
 	@PostConstruct
 	public void initialize() {
 		User u = new User("Sean Smith", "foo@example.com", "hello", null, null);

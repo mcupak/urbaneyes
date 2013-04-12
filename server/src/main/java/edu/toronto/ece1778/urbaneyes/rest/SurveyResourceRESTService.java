@@ -15,7 +15,7 @@ import edu.toronto.ece1778.urbaneyes.data.UserManager;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 
 /**
- * RESTful service to read the contents of the members table.
+ * RESTful service to expose surveys via XML.
  */
 @Path("/surveys")
 @RequestScoped
@@ -25,6 +25,11 @@ public class SurveyResourceRESTService {
 	@Inject
 	private UserManager um;
 
+	/**
+	 * Exports all the surveys to XML.
+	 * 
+	 * @return list of surveys
+	 */
 	@GET
 	@Produces("text/xml")
 	public List<SurveyItem> listAllSurveys() {
@@ -36,6 +41,13 @@ public class SurveyResourceRESTService {
 		return items;
 	}
 
+	/**
+	 * Looks up a survey by ID and exposes it via XML.
+	 * 
+	 * @param id
+	 *            survey id
+	 * @return survey
+	 */
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("text/xml")
@@ -43,6 +55,12 @@ public class SurveyResourceRESTService {
 		return sm.getSurvey(id);
 	}
 
+	/**
+	 * Looks up a survey by its owner's ID and exposes it via XML.
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GET
 	@Path("/user-{id:[0-9][0-9]*}")
 	@Produces("text/xml")

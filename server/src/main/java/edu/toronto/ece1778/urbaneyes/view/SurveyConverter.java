@@ -9,6 +9,12 @@ import javax.inject.Inject;
 import edu.toronto.ece1778.urbaneyes.data.SurveyManager;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 
+/**
+ * JSF converteer for survey objects so that they can be displayed as strings.
+ * 
+ * @author mcupak
+ * 
+ */
 @FacesConverter(value = "surveyConverter")
 public class SurveyConverter implements Converter {
 

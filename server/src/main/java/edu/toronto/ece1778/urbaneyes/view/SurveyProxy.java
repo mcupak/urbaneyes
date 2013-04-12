@@ -13,6 +13,12 @@ import edu.toronto.ece1778.urbaneyes.model.Question;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
+/**
+ * Proxy object representing an in-memory version of a survey.
+ * 
+ * @author mcupak
+ * 
+ */
 public class SurveyProxy implements Serializable {
 	private static final long serialVersionUID = 1L;
 

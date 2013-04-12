@@ -7,6 +7,13 @@ import javax.inject.Named;
 
 import org.richfaces.component.SortOrder;
 
+/**
+ * Bean responsible for sorting of submissions when displayed in a table with
+ * sorting capabilities in JSF.
+ * 
+ * @author mcupak
+ * 
+ */
 @Named
 @ViewScoped
 public class SubmissionSortingBean implements Serializable {
@@ -15,6 +22,9 @@ public class SubmissionSortingBean implements Serializable {
 	private SortOrder userOrder = SortOrder.unsorted;
 	private SortOrder pointOrder = SortOrder.unsorted;
 
+	/**
+	 * Set ordering to date.
+	 */
 	public void sortByDate() {
 		userOrder = SortOrder.unsorted;
 		pointOrder = SortOrder.unsorted;
@@ -25,6 +35,9 @@ public class SubmissionSortingBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Set ordering to user.
+	 */
 	public void sortByUser() {
 		dateOrder = SortOrder.unsorted;
 		pointOrder = SortOrder.unsorted;
@@ -35,6 +48,9 @@ public class SubmissionSortingBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Set ordering to point.
+	 */
 	public void sortByPoint() {
 		dateOrder = SortOrder.unsorted;
 		userOrder = SortOrder.unsorted;

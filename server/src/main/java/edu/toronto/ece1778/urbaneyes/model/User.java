@@ -17,6 +17,12 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * User account entity.
+ * 
+ * @author mcupak
+ * 
+ */
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))

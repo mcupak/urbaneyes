@@ -13,7 +13,7 @@ import javax.ws.rs.Produces;
 import edu.toronto.ece1778.urbaneyes.model.Question;
 
 /**
- * RESTful service to read the contents of the members table.
+ * RESTful service to expose questions via XML.
  */
 @Path("/questions")
 @RequestScoped
@@ -21,6 +21,11 @@ public class QuestionResourceRESTService {
 	@Inject
 	private EntityManager em;
 
+	/**
+	 * Exposes all the questions in a database via XML.
+	 * 
+	 * @return list of all the questions
+	 */
 	@GET
 	@Produces("text/xml")
 	public List<Question> listAllQuestions() {
@@ -30,6 +35,13 @@ public class QuestionResourceRESTService {
 		return results;
 	}
 
+	/**
+	 * Looks up a question by its ID and exposes it via XML.
+	 * 
+	 * @param id
+	 *            question ID
+	 * @return question with the given ID
+	 */
 	@GET
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces("text/xml")

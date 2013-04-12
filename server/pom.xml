@@ -12,7 +12,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- Define the version of JBoss' Java EE 6 APIs and Tools we want to import. -->
 		<javaee6.with.tools.version>1.0.0.M1</javaee6.with.tools.version>
 		<version.hibernate.entitymanager>4.1.4.Final</version.hibernate.entitymanager>
 		<version.hibernate.validator>4.2.0.Final</version.hibernate.validator>
@@ -55,17 +54,17 @@
 			<artifactId>cdi-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.jboss.weld.servlet</groupId> -->
-<!-- 			<artifactId>weld-servlet</artifactId> -->
-<!-- 			<version>1.1.4.Final</version> -->
-<!-- 			<exclusions> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>org.jboss.weld</groupId> -->
-<!-- 					<artifactId>weld-build-config</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 			</exclusions> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.jboss.weld.servlet</groupId> -->
+		<!-- <artifactId>weld-servlet</artifactId> -->
+		<!-- <version>1.1.4.Final</version> -->
+		<!-- <exclusions> -->
+		<!-- <exclusion> -->
+		<!-- <groupId>org.jboss.weld</groupId> -->
+		<!-- <artifactId>weld-build-config</artifactId> -->
+		<!-- </exclusion> -->
+		<!-- </exclusions> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -252,10 +251,6 @@
 
 	<profiles>
 		<profile>
-			<!-- The default profile skips all tests, though you can tune it to run 
-				just unit tests based on a custom pattern -->
-			<!-- Seperate profiles are provided for running all tests, including Arquillian 
-				tests that execute in the specified container -->
 			<id>default</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -274,11 +269,6 @@
 		</profile>
 
 		<profile>
-			<!-- An optional Arquillian testing profile that executes tests in your 
-				JBoss AS instance -->
-			<!-- This profile will start a new JBoss AS instance, and execute the 
-				test, shutting it down when done -->
-			<!-- Run with: mvn clean test -Parq-jbossas-managed -->
 			<id>arq-jbossas-managed</id>
 			<dependencies>
 				<dependency>
@@ -290,9 +280,6 @@
 		</profile>
 
 		<profile>
-			<!-- An optional Arquillian testing profile that executes tests in a remote 
-				JBoss AS instance -->
-			<!-- Run with: mvn clean test -Parq-jbossas-remote -->
 			<id>arq-jbossas-remote</id>
 			<dependencies>
 				<dependency>
@@ -304,13 +291,6 @@
 		</profile>
 
 		<profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when 
-				invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app 
-				will need. -->
-			<!-- By default that is to put the resulting archive into the 'deployments' 
-				folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
 				<plugins>

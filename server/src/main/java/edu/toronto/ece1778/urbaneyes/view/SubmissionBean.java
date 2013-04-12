@@ -16,6 +16,13 @@ import com.google.common.collect.Maps;
 import edu.toronto.ece1778.urbaneyes.model.Submission;
 import edu.toronto.ece1778.urbaneyes.util.JPADataModel;
 
+/**
+ * Bean taking care of submission when displayed using JPADataModel. Not used
+ * ATM.
+ * 
+ * @author mcupak
+ * 
+ */
 @Named
 @SessionScoped
 public class SubmissionBean implements Serializable {

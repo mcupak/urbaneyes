@@ -10,23 +10,37 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.jboss.solder.logging.Logger;
-
 import edu.toronto.ece1778.urbaneyes.model.Option;
 
+/**
+ * Managing bean for options. Performes operations on options in a database.
+ * 
+ * @author mcupak
+ * 
+ */
 @Stateless
 @Named
 public class OptionManager {
 
 	@Inject
 	private EntityManager em;
-	@Inject
-	private Logger log;
 
+	/**
+	 * Finds an option by its ID.
+	 * 
+	 * @param id
+	 *            ID of an option to find
+	 * @return option with a given ID
+	 */
 	public Option getOption(Long id) {
 		return em.find(Option.class, id);
 	}
 
+	/**
+	 * Retrieves all the options in a database.
+	 * 
+	 * @return list of all the options
+	 */
 	@Produces
 	@Model
 	public List<Option> getOptions() {
@@ -35,12 +49,25 @@ public class OptionManager {
 		return em.createQuery(cq).getResultList();
 	}
 
+	/**
+	 * Saves a new option to a database.
+	 * 
+	 * @param option
+	 *            option to save
+	 */
 	public void addOption(Option option) {
 		if (option != null) {
 			em.persist(option);
 		}
 	}
 
+	/**
+	 * Removes an existing option from a database.
+	 * 
+	 * @param id
+	 *            ID of an option to remove
+	 * @return true if the remove was performed, false otherwise
+	 */
 	public boolean deleteOption(Long id) {
 		Option option = getOption(id);
 		if (option == null) {
@@ -51,6 +78,12 @@ public class OptionManager {
 		}
 	}
 
+	/**
+	 * Saves changes to an existing persisted option.
+	 * 
+	 * @param option
+	 *            option to save
+	 */
 	public void editOption(Option option) {
 		if (getOption(option.getId()) != null) {
 			em.merge(option);

@@ -25,6 +25,13 @@ import org.richfaces.model.SortField;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
+/**
+ * JPA data model for use in JSF.
+ * 
+ * @author mcupak
+ * 
+ * @param <T>
+ */
 public abstract class JPADataModel<T> extends ExtendedDataModel<T> implements
 		Arrangeable {
 	private EntityManager entityManager;

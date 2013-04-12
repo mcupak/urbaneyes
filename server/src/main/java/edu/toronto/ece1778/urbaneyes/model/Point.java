@@ -10,6 +10,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * Location in space. Contains latitude, longitude and altitude.
+ * 
+ * @author mcupak
+ * 
+ */
 @Entity
 @XmlRootElement
 public class Point implements Serializable {

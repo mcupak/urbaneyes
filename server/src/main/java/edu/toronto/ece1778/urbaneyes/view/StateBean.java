@@ -15,6 +15,12 @@ import edu.toronto.ece1778.urbaneyes.model.Submission;
 import edu.toronto.ece1778.urbaneyes.model.Survey;
 import edu.toronto.ece1778.urbaneyes.model.User;
 
+/**
+ * Bean responsible for state of the application.
+ * 
+ * @author mcupak
+ * 
+ */
 @Named
 @SessionScoped
 public class StateBean implements Serializable {
@@ -55,6 +61,9 @@ public class StateBean implements Serializable {
 		this.submissions = submissions;
 	}
 
+	/**
+	 * Loads the submissions to memory based on surveyForSubmission.
+	 */
 	public void loadSubmissions() {
 		if (surveyForSubmissions == null) {
 			submissions = new ArrayList<Submission>();
@@ -63,6 +72,13 @@ public class StateBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Looks up surveys available to a given user.
+	 * 
+	 * @param userId
+	 *            user id
+	 * @return list of surveys
+	 */
 	public List<Survey> getAvailableSurveys(String userId) {
 		if (userId == null || userId.isEmpty()) {
 			return sem.getPublicSurveys();
@@ -74,6 +90,13 @@ public class StateBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Looks up surveys by their owner.
+	 * 
+	 * @param userId
+	 *            owner id
+	 * @return list of survey of a given owner
+	 */
 	public List<Survey> getSurveysByOwner(String userId) {
 		if (user == null) {
 			user = um.getUser(Long.valueOf(userId));
@@ -81,6 +104,12 @@ public class StateBean implements Serializable {
 		return sem.getSurveysByOwner(user);
 	}
 
+	/**
+	 * Load submissions to memory based on a given user.
+	 * 
+	 * @param userId
+	 *            user id
+	 */
 	public void loadUserSubmissions(String userId) {
 		if (userSurveyForSubmissions == null) {
 			userSubmissions = new ArrayList<Submission>();
@@ -161,6 +190,11 @@ public class StateBean implements Serializable {
 		return problem;
 	}
 
+	/**
+	 * Empties error messages once they're shown.
+	 * 
+	 * @return
+	 */
 	public String showProblem() {
 		String p = problem;
 		problem = "";
@@ -171,6 +205,20 @@ public class StateBean implements Serializable {
 		this.problem = problem;
 	}
 
+	/**
+	 * Takes care of a selection of a survey to display using a dynamically
+	 * generated view based on editing capabilities.
+	 * 
+	 * @param surveyForEditId
+	 *            survey id
+	 * @param edit
+	 *            true if you want to edit the survey, false if you only want to
+	 *            view it
+	 * @param editQuestions
+	 *            true if you want to change the questions of a survey, false if
+	 *            you want to only display them
+	 * @return redirect to the survey view
+	 */
 	public String selectSurvey(Long surveyForEditId, boolean edit,
 			boolean editQuestions) {
 		this.edit = edit;
@@ -179,6 +227,13 @@ public class StateBean implements Serializable {
 		return "/survey.xhtml?faces-redirect=true";
 	}
 
+	/**
+	 * Takes of a selection of a submission to view.
+	 * 
+	 * @param id
+	 *            submission ID
+	 * @return redirect to the submission view
+	 */
 	public String selectSubmission(Long id) {
 		this.submissionForEditId = id;
 		return "/submission.xhtml?faces-redirect=true";

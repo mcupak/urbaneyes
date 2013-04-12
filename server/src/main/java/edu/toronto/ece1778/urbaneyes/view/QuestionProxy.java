@@ -5,6 +5,12 @@ import java.io.Serializable;
 import edu.toronto.ece1778.urbaneyes.model.AnswerType;
 import edu.toronto.ece1778.urbaneyes.model.Question;
 
+/**
+ * Proxy for an in-memory representation of a question.
+ * 
+ * @author mcupak
+ * 
+ */
 public class QuestionProxy implements Serializable {
 	private static final long serialVersionUID = 1L;
 

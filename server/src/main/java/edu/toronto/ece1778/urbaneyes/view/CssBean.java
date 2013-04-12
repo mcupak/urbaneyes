@@ -5,6 +5,12 @@ import java.io.Serializable;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
+/**
+ * Bean responsible for dynamic CSS effects, e.g. TAB highlighting in the menu.
+ * 
+ * @author mcupak
+ * 
+ */
 @Named
 @ViewScoped
 public class CssBean implements Serializable {

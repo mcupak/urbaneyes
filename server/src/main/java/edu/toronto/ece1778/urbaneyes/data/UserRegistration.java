@@ -15,7 +15,12 @@ import javax.persistence.EntityManager;
 
 import edu.toronto.ece1778.urbaneyes.model.User;
 
-// The @Stateful annotation eliminates the need for manual transaction demarcation
+/**
+ * Bean responsible for user registration.
+ * 
+ * @author mcupak
+ * 
+ */
 @Stateful
 @Model
 public class UserRegistration {
@@ -40,6 +45,11 @@ public class UserRegistration {
 		return newMember;
 	}
 
+	/**
+	 * Registers the user and stores his credentials.
+	 * 
+	 * @throws Exception
+	 */
 	public void register() throws Exception {
 		log.info("Registering " + newMember.getName());
 		em.persist(newMember);
@@ -50,6 +60,9 @@ public class UserRegistration {
 		initNewMember();
 	}
 
+	/**
+	 * Creates a new user.
+	 */
 	@PostConstruct
 	public void initNewMember() {
 		newMember = new User();
