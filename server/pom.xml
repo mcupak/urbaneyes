@@ -83,7 +83,7 @@
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>jstl-api</artifactId>
-			<scope>${dependency.scope}</scope>
+			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<artifactId>servlet-api</artifactId>
